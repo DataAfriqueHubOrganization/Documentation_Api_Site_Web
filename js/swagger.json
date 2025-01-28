@@ -1,0 +1,240 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "description": "<p>API de démo</p> <p>Donées <strong>simulées</strong></p>",
+        "version" : "1.0.0",
+        "title": "API Démo"
+    },
+    "servers": [
+        {
+            "url": "https://demo/servers"
+        },
+        {
+            "url": "https://demo2/servers"
+        }
+    ],
+
+    "tags":[
+        {
+            "name": "Utilisateurs",
+            "description": "Tout ceux qui concerne les utilisateurs"
+        },
+        {
+            "name": "Articles",
+            "description": "Tout ceux qui concerne les articles"
+        }
+    ],
+
+    "paths":{
+        "/users":{
+            "get":{
+                "tags":["Utilisateurs"],
+                "summary": "Obtenir la liste des Utilisateurs",
+                "operationId": "getUsers",
+                "responses":{
+                    "200":{
+                        "description": "Renvoie une collection d'utilisateurs",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/ArrayOfUsers"
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+            }
+        },
+
+        "/users/{id}":{
+            "get":{
+                "tags":["Utilisateurs"],
+                "summary":"Recupère un utilisateur",
+                "description": "Recupère un utilisateur à partir de son id",
+                "operationId":"getUsers",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identifiant de l'utilisateur",
+                        "required": true,
+                        "schema":{
+                            "type": "integer"
+                        }
+                    }
+                ],
+
+                "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Utilisateurs"
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+            },
+
+            "delete":{
+                "tags":["Utilisateurs"], 
+                "summary": "Supprimer un utilisateur"
+            }
+        },
+
+        "/posts":{
+            "get":{
+                "tags":["Articles"],
+                "summary": "Recupère la liste des articles",
+                "description": "Voir la liste complète des articles de l'API",
+                "operationId":"getPost",
+                "responses":{
+                    "200":{
+                        "description": "Renvoie une collection d'articles",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/ArrayOfArticles"
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+            }
+        },
+            "post":{
+                "tags":["Articles"],
+                "summary":"Créer un article",
+                "description": "Créer un article en donnant toutes les informations nécessaires",
+                "operationId":"addPost",
+                "requestBody":{
+                    "description": "Contenu complet d'un article",
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "properties": {
+                                    "title":{
+                                        "type":"string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    },
+                                    "featuredImage": {
+                                        "type": "string"
+                                    },
+                                    "user": {
+                                        "type":"string",
+                                        "format": "iri-reference",
+                                        "default": "/users/{id}"
+                                    }
+                                },
+                                "required":[
+                                    "title",
+                                    "content",
+                                    "user"
+                                ]
+                                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "Article crée",
+                        "content":{
+                            "application/json": {
+                                "schema":{
+                                    "$ref":"#/components/schemas/Articles"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+     }
+    },
+
+    "components":{
+        "schemas": {
+            "Utilisateurs": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "username":{
+                        "type":"string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "example":{
+                        "id":1,
+                        "username": "MikePayne",
+                        "email": "mike.payne@example.com"
+                    }
+            }, 
+            "ArrayOfUsers":{
+                "type": "array",
+                "items":{
+                    "$ref":"#/components/schemas/Utilisateurs"
+                },
+                "example":[
+                    {
+                        "id":1,
+                        "username": "MikePayne",
+                        "email": "mike.payne@example.com"
+                    },
+                    {
+                        "id":2,
+                        "username": "LoriClark",
+                        "email": "lori.clark@example.com"
+                    }
+                ]
+            },
+
+            "Articles": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title":{
+                        "type":"string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "featuredImage": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type":"string",
+                        "format": "iri-reference",
+                        "default": "/users/{id}"
+                    }
+                }
+            }, 
+            "ArrayOfArticles":{
+                "type": "array",
+                "items":{
+                    "$ref":"#/components/schemas/Articles"
+                }
+            }
+        }
+    }
+}

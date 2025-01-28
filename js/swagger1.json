@@ -1,0 +1,1190 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Documentation API - Data Afrique Hub",
+    "description": "Bienvenue dans la documentation officielle de l'API backend du site web de Data Afrique Hub. Cette API offre une interface robuste et intuitive permettant de gérer les utilisateurs, les comptes, ainsi que les événements associés à la plateforme. Elle est conçue pour faciliter l'intégration et l'accès à nos services de manière efficace et sécurisée.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://dev-api.dataafriquehub.org/api/",
+      "description": "Environnement de développement de l'API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Utilisateurs",
+      "description": "Endpoints relatifs à la gestion des utilisateurs, y compris la création, la mise à jour et la récupération des informations utilisateurs."
+    },
+    {
+      "name": "Comptes",
+      "description": "Endpoints relatifs à l'authentification et à la gestion des comptes utilisateurs, notamment la création de comptes, le login et d'autres fonctionnalités liées."
+    },
+    {
+      "name": "Événements",
+      "description": "Endpoints dédiés à la gestion des événements, incluant leur création, modification et récupération."
+    }
+  ],
+  "paths": {
+    "/users": {
+        "post": {
+        "tags": ["Utilisateurs"],
+        "summary": "Créer un nouvel utilisateur",
+        "description": "Cet endpoint permet de créer un nouvel utilisateur en fournissant les informations nécessaires concernant la personne et son organisme.",
+        "operationId": "addPostUser",
+        "requestBody": {
+          "description": "Schéma de la requête JSON pour créer un utilisateur.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "organisme": {
+                    "type": "object",
+                    "properties": {
+                      "nom": { "type": "string", "example": "IMSP" },
+                      "type_structure": { "type": "string", "example": "Université" },
+                      "pays": { "type": "string", "example": "Bénin" }
+                    },
+                    "required": ["nom", "type_structure", "pays"]
+                  },
+                  "personne": {
+                    "type": "object",
+                    "properties": {
+                      "nom": { "type": "string", "example": "HOUENAGNON" },
+                      "prenom": { "type": "string", "example": "Merveil" },
+                      "sexe": { "type": "string", "example": "Homme" },
+                      "email": { "type": "string", "example": "merveilhouenagnon@gmail.com" },
+                      "pays_residence": { "type": "string", "example": "Bénin" },
+                      "profession": { "type": "string", "example": "Étudiant" },
+                      "abonne_newsletter": { "type": "boolean", "example": true },
+                      "nationalite": { "type": "string", "example": "Béninoise" },
+                      "niveau_etude": { "type": "string", "example": "BTS" },
+                      "domaine_etudes": { "type": "string", "example": "Data Science" }
+                    },
+                    "required": ["nom", "prenom", "email", "pays_residence"]
+                  }
+                },
+                "required": ["personne", "organisme"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur créé avec succès.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": "Utilisateur créé avec succès",
+                  "user_org": {
+                    "user": {
+                      "id": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                      "nom": "HOUENAGNON",
+                      "prenom": "Merveil",
+                      "sexe": "Homme",
+                      "email": "merveilhouenagnon@gmail.com",
+                      "pays_residence": "Bénin",
+                      "profession": "Étudiant",
+                      "abonne_newsletter": true,
+                      "nationalite": "Béninoise",
+                      "niveau_etude": "BTS",
+                      "domaine_etudes": "Data Science",
+                      "updatedAt": "2025-01-12T13:12:18.701Z",
+                      "createdAt": "2025-01-12T13:12:18.701Z"
+                    },
+                    "organisme": {
+                      "id": "f9aaf1ad-d313-42e5-9937-9de77d770944",
+                      "nom": "IMSP",
+                      "type_structure": "Université",
+                      "pays": "Bénin",
+                      "createdAt": "2025-01-12T12:52:17.000Z",
+                      "updatedAt": "2025-01-12T12:52:17.000Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne lors de la création de l'utilisateur."
+          }
+        }
+      },
+
+        "get":{
+          "tags":["Utilisateurs"],
+          "summary":"Avoir tous les utilisateurs dans la BD",     
+          "description": "Avoir tous les utilisateurs dans la BD",
+          "operationId":"getUsers",
+          "responses":{
+                      "200":{
+                          "description": "Renvoie une collection d'utilisateurs",
+                          "content":{
+                              "application/json":{
+                                  "example":{
+                                    "users": [
+                                      {
+                                          "id": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
+                                          "nom": "ANGES",
+                                          "prenom": "Thomas",
+                                          "sexe": "Homme",
+                                          "email": "thomasanges@gmail.com",
+                                          "pays_residence": "Benin",
+                                          "profession": "Etudiant",
+                                          "abonne_newsletter": true,
+                                          "nationalite": "Benin",
+                                          "niveau_etude": "BTS",
+                                          "domaine_etudes": "",
+                                          "createdAt": "2025-01-12T13:32:46.000Z",
+                                          "updatedAt": "2025-01-12T13:32:46.000Z"
+                                      },
+                                      {
+                                          "id": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "nom": "HOUENAGNON",
+                                          "prenom": "Merveil",
+                                          "sexe": "Homme",
+                                          "email": "merveilhouenagnon@gmail.com",
+                                          "pays_residence": "Benin",
+                                          "profession": "Etudiant",
+                                          "abonne_newsletter": true,
+                                          "nationalite": "Benin",
+                                          "niveau_etude": "BTS",
+                                          "domaine_etudes": "Data Science",
+                                          "createdAt": "2025-01-12T13:12:18.000Z",
+                                          "updatedAt": "2025-01-12T13:12:18.000Z"
+                                      }
+                                  ]
+                                  }
+                              }
+                          }
+                      },
+  
+                      "404": {
+                          "description": "Renvoie une erreur, aucun élément trouvé"   
+                      }
+              }
+        }
+        
+    },
+
+    "/users/{id}":{
+      "get":{
+        "tags":["Utilisateurs"],
+        "summary":"Recupère un  utilisateur",
+        "description": "Recupère un  utilisateur à partir de son id",
+        "operationId":"getUser",
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }
+        ],
+        "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "user": {
+                                    "id": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
+                                    "nom": "ANGES",
+                                    "prenom": "Thomas",
+                                    "sexe": "Femme",
+                                    "email": "thomsanges@gmail.com",
+                                    "pays_residence": "Benin",
+                                    "profession": "Data Science",
+                                    "abonne_newsletter": true,
+                                    "nationalite": "Benin",
+                                    "niveau_etude": "BTS",
+                                    "domaine_etudes": "",
+                                    "createdAt": "2025-01-12T13:32:46.000Z",
+                                    "updatedAt": "2025-01-19T16:07:31.000Z"
+                                },
+                                "org": {
+                                    "id": "f9aaf1ad-d313-42e5-9937-9de77d770944",
+                                    "nom": "IMSP",
+                                    "type_structure": "Université",
+                                    "pays": "Beninoise",
+                                    "createdAt": "2025-01-12T12:52:17.000Z",
+                                    "updatedAt": "2025-01-19T16:16:34.000Z"
+                                }
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+      },
+
+      "put":{
+        "tags":["Utilisateurs"],
+        "summary":"Modifier les informations de d'utilisateur",
+        "description": "Modifier les information de compte utilisateur à partir de l'id du compte",
+        "operationId":"getUser",
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }
+        ],
+        "requestBody": {
+          "description": "Fournir les information de mise à jour du compte existant",
+          "content": {
+            "application/json": {
+              "example": {
+                    "organisme":{
+                      "nom": "IMSP",
+                      "type_structure": "Université",
+                      "pays": "Beninoise"
+                    },
+                    "personne":{
+                        "nom": "ANGES",
+                        "prenom": "Thomas",
+                        "sexe": "Femme",
+                        "email": "thomsanges@gmail.com",
+                        "pays_residence": "Benin",
+                        "profession": "Data Science",
+                        "abonne_newsletter": true,
+                        "nationalite": "Benin",
+                        "niveau_etude": "BTS",
+                        "domaine_etude": "Data Science"
+                    }
+              }
+            }
+          }
+        },
+        "responses":{
+                    "200":{
+                        "description": "Renvoie les information de compte utilisateur mis à jours",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "organisme": {
+                                    "nom": "IMSP",
+                                    "type_structure": "Université",
+                                    "pays": "Beninoise"
+                                  },
+                                  "personne": {
+                                    "nom": "ANGES",
+                                    "prenom": "Thomas",
+                                    "sexe": "Femme",
+                                    "email": "thomsanges@gmail.com",
+                                    "pays_residence": "Benin",
+                                    "profession": "Data Science",
+                                    "abonne_newsletter": true,
+                                    "nationalite": "Benin",
+                                    "niveau_etude": "BTS",
+                                    "domaine_etude": "Data Science"
+                                  }
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+
+      },
+
+      "delete":{
+        "tags":["Utilisateurs"], 
+        "summary": "Supprimer un compte utilisateur",
+        "description": "Supprimer un compte utilisateur à partir de son id",
+        "operationId":"deleteUser",
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }
+        ],
+        "responses":{
+                    "200":{
+                        "description": "Renvoi un message de suppresion avec succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Utilisateur supprimé avec succès."
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+
+      }
+    },
+    "/comptes" : {
+      "post":{
+        "tags":["Comptes"],
+        "summary":"Crée un compte utilisateur",
+        "description": "Crée un compte utilisateur avec email et mot de passe",
+        "operationId":"signUp",
+        "requestBody":{
+                    "description": "Informations pour la création de son compte utilisateur",
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "properties": {
+                                  "email":{
+                                    "type": "string"
+                                  },
+                                  "password": {
+                                    "type": "string"
+                                  },
+                                  "role": {
+                                    "type": "string"
+                                  } 
+                                },
+                                "example":{
+                                  "email":"merveilhouenagnon@gmail.com",
+                                  "password": "AZErty#_55",
+                                  "role":"membre departement IT" 
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "Compte créé avec succès.",
+                        "content":{
+                            "application/json": {
+                                "example":{
+                                  "message": "Compte créé avec succès.",
+                                  "compte": {
+                                      "id": "ef16339c-a37d-4a0d-a02a-abbf6f55804b",
+                                      "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                      "login": "merveilhouenagnon@gmail.com",
+                                      "mot_de_passe": "$2b$10$rcXibmBJUdxpJnkm3mmZc.tx7JOkIQK.7WfwTtOjN9OB7lk8KAgYK",
+                                      "role": "membre departement IT",
+                                      "updatedAt": "2025-01-12T14:14:09.282Z",
+                                      "createdAt": "2025-01-12T14:14:09.282Z"
+                                  }
+                                }
+                            }
+                        }
+                    },
+                
+                    "404": {
+                        "description": "L'email n'existe pas dans la base de données",
+                        "content":{
+                          "application/json":{
+                            "example":{
+                              "message": "Email non trouvé dans la base de données"
+                            }
+                          }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Mauvaise requête"
+                    }
+                }
+      }, 
+      "get":{
+        "tags":["Comptes"],
+        "summary":"Avoir tous les comptes dans la BD",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "Bearer token obtenir lors de la connexion."
+          }
+        ],       
+        "description": "Avoir tous les comptes dans la BD",
+        "operationId":"getComptes",
+        "responses":{
+                    "200":{
+                        "description": "Renvoie une collection de comptes",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Comptes récupérés avec succès.",
+                                  "comptes": [
+                                      {
+                                          "id": "09a8a5b5-cdb2-4cca-8a7a-bd6fa13f69b3",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$p/3j3SP9Eg3IbuyUuCWbk.h2QSMwLkUVolDkbPPLB4FrKzhNf9NxW",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:14:06.000Z",
+                                          "updatedAt": "2025-01-12T14:14:06.000Z"
+                                      },
+                                      {
+                                          "id": "61895d5a-a254-4507-ae37-2c75e1027908",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$g7kFgDU.UIE7I8h24Rwc3.72iVynsIQURm03RIacGPKlH/qqINCAu",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:23:59.000Z",
+                                          "updatedAt": "2025-01-12T14:23:59.000Z"
+                                      },
+                                      {
+                                          "id": "67978932-c7da-41cc-8224-52d76d03df5d",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$rjJb9MPBXYWXriMBNC7QIugl1TgEiJ5nQN7E4UuPLYu3eFkcdwV8W",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:14:07.000Z",
+                                          "updatedAt": "2025-01-12T14:14:07.000Z"
+                                      },
+                                      {
+                                          "id": "6e13b4fc-66c6-4e27-b56e-486dfbda2f12",
+                                          "id_personne": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
+                                          "login": "thomasanges@gmail.com",
+                                          "mot_de_passe": "$2b$10$H75wHqMEV5BUUdiNVTAPhu5DFR5Nwt8pf11TMg0dXkJYqTRWqreEm",
+                                          "role": "Lead IT",
+                                          "createdAt": "2025-01-12T14:33:43.000Z",
+                                          "updatedAt": "2025-01-12T14:33:43.000Z"
+                                      },
+                                      {
+                                          "id": "764bc3cb-ea2e-4953-bc4f-43fb50f1e4fe",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$PqGBVtZhyW01aByrmKVb9e9iRx5cf3RyUX15UB4xhJoY1qzVWY/HW",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:28:22.000Z",
+                                          "updatedAt": "2025-01-12T14:28:22.000Z"
+                                      },
+                                      {
+                                          "id": "c03104aa-5f1a-4fbc-9ac5-7e8d926d104b",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$Tv68SeegIOL6WiA7zqTph.czsaiqmaSfnseBXJZ7F/6hGmz///J22",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:13:31.000Z",
+                                          "updatedAt": "2025-01-12T14:13:31.000Z"
+                                      },
+                                      {
+                                          "id": "c2e5216e-797c-48a0-8dea-ec3c367cec55",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$FbR.XOe4Eyh..tUzUgiTmOqv9dLk8OvFvrbK9O9fLr/KryrU4cnz2",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:31:04.000Z",
+                                          "updatedAt": "2025-01-12T14:31:04.000Z"
+                                      },
+                                      {
+                                          "id": "c71bb303-a3b6-4672-a28e-5e346be46841",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$OST6lsbYUWxC5sWAzsssm.r.TTODcnHSDQj2wm00j.4yudQzj5lsC",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:31:13.000Z",
+                                          "updatedAt": "2025-01-12T14:31:13.000Z"
+                                      },
+                                      {
+                                          "id": "ca11cad3-9d0b-4865-9374-1b38e874eb42",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$KQ.UwiqbfbRbGRanJnlTbOwBM8l8xyeQrm2.i53kRg13w/XUoUVcK",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:13:38.000Z",
+                                          "updatedAt": "2025-01-12T14:13:38.000Z"
+                                      },
+                                      {
+                                          "id": "ef16339c-a37d-4a0d-a02a-abbf6f55804b",
+                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                          "login": "merveilhouenagnon@gmail.com",
+                                          "mot_de_passe": "$2b$10$rcXibmBJUdxpJnkm3mmZc.tx7JOkIQK.7WfwTtOjN9OB7lk8KAgYK",
+                                          "role": "membre departement IT",
+                                          "createdAt": "2025-01-12T14:14:09.000Z",
+                                          "updatedAt": "2025-01-12T14:14:09.000Z"
+                                      }
+                                  ]
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+            }
+      }
+    },
+    "/comptes/{id}":{
+      "get":{
+        "tags":["Comptes"],
+        "summary":"Recupère un compte utilisateur",
+        "description": "Recupère un compte utilisateur à partir de son id",
+        "operationId":"getUser",
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+        "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Compte récupéré avec succès.",
+                                  "compte": {
+                                      "id": "09a8a5b5-cdb2-4cca-8a7a-bd6fa13f69b3",
+                                      "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
+                                      "login": "merveilhouenagnon@gmail.com",
+                                      "mot_de_passe": "$2b$10$p/3j3SP9Eg3IbuyUuCWbk.h2QSMwLkUVolDkbPPLB4FrKzhNf9NxW",
+                                      "role": "membre departement IT",
+                                      "createdAt": "2025-01-12T14:14:06.000Z",
+                                      "updatedAt": "2025-01-12T14:14:06.000Z"
+                                  }
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+      },
+
+      "put":{
+        "tags":["Comptes"],
+        "summary":"Modifier les information de compte utilisateur",
+        "description": "Modifier les information de compte utilisateur à partir de l'id du compte",
+        "operationId":"getUser",
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+        "requestBody": {
+          "description": "Fournir les information de mise à jour du compte existant",
+          "content": {
+            "application/json": {
+              "example": {
+                "email":"thomasanges@gmail.com",
+                "password": "12345",
+                "role":"Lead Lead" 
+              }
+            }
+          }
+        },
+        "responses":{
+                    "200":{
+                        "description": "Renvoie les information de compte utilisateur mis à jours",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Compte mis à jour avec succès.",
+                                  "compte": {
+                                      "id": "6e13b4fc-66c6-4e27-b56e-486dfbda2f12",
+                                      "id_personne": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
+                                      "login": "thomasanges@gmail.com",
+                                      "mot_de_passe": "$2b$10$vTipwRLw96sFo7IgeP112uF74MccbAKRzxHK5PSK8jGm8muOU88Ti",
+                                      "role": "Lead Lead",
+                                      "createdAt": "2025-01-12T14:33:43.000Z",
+                                      "updatedAt": "2025-01-12T17:00:30.917Z"
+                                  }
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+
+      },
+
+      "delete":{
+        "tags":["Comptes"], 
+        "summary": "Supprimer un compte utilisateur",
+        "description": "Supprimer un compte utilisateur à partir de son id",
+        "operationId":"getUser",
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+        "responses":{
+                    "200":{
+                        "description": "Renvoi un message de suppresion avec succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Compte supprimé avec succès."
+                                }
+                            }
+                        }
+                    },
+
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    }
+                }
+
+      }
+    },
+    "/login" :{
+      "post":{
+        "tags":["Comptes"],
+        "summary":"Se connecter à son compte utilisateur",
+        "description": "Se connecter à son compte utilisateur avec email et mot de passe",
+        "operationId":"login",
+        "requestBody":{
+                    "description": "Informations pour se connecter à son compte utilisateur",
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "properties": {
+                                  "email":{
+                                    "type": "string"
+                                  },
+                                  "motDePasse": {
+                                    "type": "string"
+                                  }
+                                },
+                                "example":{
+                                  "email":"thomasanges@gmail.com",
+                                  "motDePasse": "12345"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200": {
+                        "description": "Connexion réussie",
+                        "content":{
+                            "application/json": {
+                                "example":{
+                                  "user": {
+                                    "id": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
+                                    "nom": "ANGES",
+                                    "prenom": "Thomas",
+                                    "sexe": "Homme",
+                                    "email": "thomasanges@gmail.com",
+                                    "pays_residence": "Benin",
+                                    "profession": "Etudiant",
+                                    "abonne_newsletter": true,
+                                    "nationalite": "Benin",
+                                    "niveau_etude": "BTS",
+                                    "domaine_etudes": "",
+                                    "createdAt": "2025-01-12T13:32:46.000Z",
+                                    "updatedAt": "2025-01-12T13:32:46.000Z"
+                                },
+                                "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRob21hc2FuZ2VzQGdtYWlsLmNvbSIsImlhdCI6MTczNjY5MjQ1MiwiZXhwIjoxNzM2Njk2MDUyfQ.jj96EDBf91FOZOvS-vQ7a-uzIhmsd4TK_pOqUT2e1uo",
+                                "role": "Lead IT"
+                                }
+                            }
+                        }
+                    },
+                
+                    "404": {
+                        "description": "L'email n'existe pas dans la base de données",
+                        "content":{
+                          "application/json":{
+                            "example":{
+                              "errors": {
+                                "msg": "Cet email n'existe pas"
+                            }
+                            }
+                          }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Mauvaise requête"
+                    }
+                }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": [
+          "Événements"
+        ],
+        "summary": "Obtenir tous les évènements",
+        "description": "Obtenir tous les évènements de la BD",
+        "operationId": "getEvent",
+        "responses":{
+          "200":{
+              "description": "Renvoie une collection d'évènements",
+              "content":{
+                  "application/json":{
+                      "example":{
+                        "event": [
+                          {
+                              "id": "345a1fef-edf9-45b3-a8d9-22535377deb4",
+                              "nom": "Découvrez le métier de la Data Analysis",
+                              "type_event": "Formation",
+                              "description": "L'événement a exploré l'univers captivant de l'analyse de données, en mettant....",
+                              "date_event": "2025-01-16T11:38:00.000Z",
+                              "date_fin_inscription": "2025-01-16T11:38:00.000Z",
+                              "lieu_event": "En ligne",
+                              "lien_event": "https://youtu.be/PuY4Y0gDxL4",
+                              "image_event": "http://localhost:3001//uploads/images_events/1737470468522.png",
+                              "createdAt": "2025-01-21T14:41:08.000Z",
+                              "updatedAt": "2025-01-21T14:41:08.000Z"
+                          },
+                          {
+                              "id": "b8adbe9b-399b-49c3-8ad4-1f90b20372cf",
+                              "nom": "Piloter l’innovation et la performance au sein d’une entreprise grâce au métier de data analyst",
+                              "type_event": "Webinaire",
+                              "description": "Ce webinaire met en lumière le rôle essentiel du Data Analyst dans.......",
+                              "date_event": "2025-01-16T11:38:00.000Z",
+                              "date_fin_inscription": "2025-01-16T11:38:00.000Z",
+                              "lieu_event": "En ligne",
+                              "lien_event": "https://youtu.be/PuY4Y0gDxL4",
+                              "image_event": "http://localhost:3001//uploads/images_events/1737471647445.png",
+                              "createdAt": "2025-01-21T15:00:47.000Z",
+                              "updatedAt": "2025-01-21T15:00:47.000Z"
+                          }
+                      ]
+                      }
+                  }
+              }
+          },
+
+          "404": {
+              "description": "Renvoie une erreur, aucun élément trouvé"   
+          }
+      }
+      },
+
+      "post":{
+        "tags":["Événements"],
+        "summary": "Créer un événement",
+        "description": "Permet de créer un événement avec ses détails et une image associée.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom_event": {
+                    "type": "string",
+                    "example": "Piloter l’innovation et la performance au sein d’une entreprise grâce au métier de data analyst"
+                  },
+                  "type_event": {
+                    "type": "string",
+                    "example": "Webinaire"
+                  },
+                  "description_event": {
+                    "type": "string",
+                    "example": "Ce webinaire met en lumière le rôle essentiel du Data Analyst..."
+                  },
+                  "date_event": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-01-16T12:38"
+                  },
+                  "date_fin_inscription": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-01-16T12:38"
+                  },
+                  "lieu_event": {
+                    "type": "string",
+                    "example": "En ligne"
+                  },
+                  "lien_event": {
+                    "type": "string",
+                    "example": "https://youtu.be/PuY4Y0gDxL4"
+                  },
+                  "email_intervenant": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "merveilhouenagnon@gmail.com"
+                  },
+                  "image_event": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Fichier image associé à l'événement."
+                  }
+                },
+                "required": [
+                  "nom_event",
+                  "type_event",
+                  "description_event",
+                  "date_event",
+                  "date_fin_inscription",
+                  "lieu_event",
+                  "lien_event",
+                  "email_intervenant",
+                  "image_event"
+                ]
+              }
+            }
+          }
+        },
+    "responses": {
+      "201": {
+        "description": "Événement créé avec succès.",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "Événement créé avec succès.",
+              "evenement": {
+                "id_event": "d243a917-9c3b-4c4e-982b-d1e4bf75e02a",
+                "nom_event": "Piloter l’innovation et la performance...",
+                "type_event": "Webinaire",
+                "description_event": "Ce webinaire met en lumière...",
+                "date_event": "2025-01-16T12:38",
+                "date_fin_inscription": "2025-01-16T12:38",
+                "lieu_event": "En ligne",
+                "lien_event": "https://youtu.be/PuY4Y0gDxL4",
+                "email_intervenant": "merveilhouenagnon@gmail.com",
+                "image_event": "uploads/images_events/1737473145468.png",
+                "createdAt": "2025-01-21T14:14:09.282Z"
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Mauvaise requête. Vérifiez les données envoyées.",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "Les données de la requête sont invalides."
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Erreur interne du serveur.",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "Erreur lors de la création de l'événement."
+            }
+          }
+        }
+      }
+    }
+      }
+
+    },
+
+    "/events/{id}": {
+      "get": {
+        "tags":["Événements"],
+        "summary": "Obtenir un événement par ID",
+        "description": "Récupère les détails d'un événement spécifique en fonction de son ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Identifiant unique de l'événement.",
+            "schema": {
+              "type": "string",
+              "example": "12345"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Détails de l'événement récupérés avec succès.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "12345",
+                  "nom_event": "Piloter l’innovation et la performance...",
+                  "type_event": "Webinaire",
+                  "description_event": "Ce webinaire met en lumière...",
+                  "date_event": "2025-01-16T12:38",
+                  "date_fin_inscription": "2025-01-16T12:38",
+                  "lieu_event": "En ligne",
+                  "lien_event": "https://youtu.be/PuY4Y0gDxL4",
+                  "email_intervenant": "merveilhouenagnon@gmail.com",
+                  "image_event_url": "/uploads/images_events/1737473145468.png"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Événement non trouvé.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Aucun événement trouvé avec l'ID fourni."
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags":["Événements"],
+        "summary": "Mettre à jour un événement",
+        "description": "Permet de mettre à jour les détails d'un événement existant.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Identifiant unique de l'événement.",
+            "schema": {
+              "type": "string",
+              "example": "12345"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom_event": { "type": "string", "example": "Nom mis à jour de l'événement" },
+                  "type_event": { "type": "string", "example": "Atelier" },
+                  "description_event": { "type": "string", "example": "Description mise à jour..." },
+                  "date_event": { "type": "string", "format": "date-time", "example": "2025-01-18T10:00" },
+                  "date_fin_inscription": { "type": "string", "format": "date-time", "example": "2025-01-17T18:00" },
+                  "lieu_event": { "type": "string", "example": "En ligne" },
+                  "lien_event": { "type": "string", "example": "https://lien.mis-a-jour.com" },
+                  "email_intervenant": { "type": "string", "format": "email", "example": "nouveau.email@gmail.com" },
+                  "image_event": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Nouvelle image associée à l'événement."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Événement mis à jour avec succès.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Événement mis à jour avec succès.",
+                  "event_id": "12345"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Certains champs fournis sont invalides."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Événement non trouvé.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Aucun événement trouvé avec l'ID fourni."
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags":["Événements"],
+        "summary": "Supprimer un événement",
+        "description": "Supprime un événement existant par ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Identifiant unique de l'événement.",
+            "schema": {
+              "type": "string",
+              "example": "12345"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Événement supprimé avec succès.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Événement supprimé avec succès."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Événement non trouvé.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Aucun événement trouvé avec l'ID fourni."
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/events/paginated/{page}": {
+      "get": {
+        "tags":["Événements"],
+        "summary": "Lister les événements avec pagination",
+        "description": "Récupère une liste paginée d'événements en fonction de la page spécifiée.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "description": "Numéro de la page à récupérer.",
+            "schema": {
+              "type": "integer",
+              "example": 1,
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste paginée d'événements récupérée avec succès.",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "with_events": {
+                    "summary": "Événements trouvés",
+                    "value": {
+                      "currentPage": 1,
+                      "events": [
+                        {
+                          "id": "345a1fef-edf9-45b3-a8d9-22535377deb4",
+                          "nom": "Découvrez le métier de la Data Analysis",
+                          "type_event": "Formation",
+                          "description": "L'événement a exploré l'univers captivant de l'analyse de données, en mettant en lumière les fondamentaux du métier de Data Analyst. Les participants ont eu l'occasion de découvrir les rôles et responsabilités associés à cette profession, ainsi que les compétences clés nécessaires pour réussir dans ce domaine en pleine expansion.",
+                          "date_event": "2025-01-16T11:38:00.000Z",
+                          "date_fin_inscription": "2025-01-16T11:38:00.000Z",
+                          "lieu_event": "En ligne",
+                          "lien_event": "https://youtu.be/PuY4Y0gDxL4",
+                          "image_event": "http://localhost:3001//uploads/images_events/1737470468522.png",
+                          "createdAt": "2025-01-21T14:41:08.000Z",
+                          "updatedAt": "2025-01-21T14:41:08.000Z"
+                        },
+                        {
+                          "id": "b8adbe9b-399b-49c3-8ad4-1f90b20372cf",
+                          "nom": "Piloter l’innovation et la performance au sein d’une entreprise grâce au métier de data analyst",
+                          "type_event": "Webinaire",
+                          "description": "Ce webinaire met en lumière le rôle essentiel du Data Analyst dans l'optimisation des performances et l'innovation au sein des entreprises. À travers des exemples concrets, les participants découvrent comment l'analyse des données permet de mieux comprendre les dynamiques internes, d’anticiper les tendances du marché et de prendre des décisions stratégiques éclairées.",
+                          "date_event": "2025-01-16T11:38:00.000Z",
+                          "date_fin_inscription": "2025-01-16T11:38:00.000Z",
+                          "lieu_event": "En ligne",
+                          "lien_event": "https://youtu.be/PuY4Y0gDxL4",
+                          "image_event": "http://localhost:3001//uploads/images_events/1737471647445.png",
+                          "createdAt": "2025-01-21T15:00:47.000Z",
+                          "updatedAt": "2025-01-21T15:00:47.000Z"
+                        }
+                      ],
+                      "next": 0
+                    }
+                  },
+                  "no_events": {
+                    "summary": "Aucun événement trouvé",
+                    "value": {
+                      "message": "Aucun événement trouvé"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requête invalide (exemple : page inférieure à 1).",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Le numéro de la page doit être supérieur ou égal à 1."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun éléments trouvés à cette page",
+            "content": {
+              "application/json": {
+                "example": {
+                    "message": "Aucun événement trouvé"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    
+  }
+
+}
