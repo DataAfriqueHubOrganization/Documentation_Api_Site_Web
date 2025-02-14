@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Documentation API - Data Afrique Hub",
-    "description": "Bienvenue dans la documentation officielle de l'API backend du site web de Data Afrique Hub. Cette API offre une interface robuste et intuitive permettant de gérer les utilisateurs, les comptes, ainsi que les événements associés à la plateforme. Elle est conçue pour faciliter l'intégration et l'accès à nos services de manière efficace et sécurisée.",
+    "description": "Bienvenue dans la documentation officielle de l'API backend du site web de Data Afrique Hub. Cette API offre une interface robuste et intuitive permettant de gérer les utilisateurs, les comptes, les membres, les départemens, les événements, les sponsors, les témoignages, la participation et bien d'autres fonctionnalités associés à la plateforme. Elle est conçue pour faciliter l'intégration et l'accès à nos services de manière efficace et sécurisée.",
     "version": "1.0.0"
   },
   "servers": [
@@ -19,6 +19,18 @@
     {
       "name": "Comptes",
       "description": "Endpoints relatifs à l'authentification et à la gestion des comptes utilisateurs, notamment la création de comptes, le login et d'autres fonctionnalités liées."
+    },
+    {
+      "name": "Membres",
+      "description": "Endpoints relatifs à la gestion des membres, y compris la création, la mise à jour et la récupération de leurs informations. </br> Un membre est tout utilisateur qui désire ou à adhérer à la communauté de Data Afrique Hub"
+    },
+    {
+      "name": "Sponsors",
+      "description": "Endpoints relatifs à la gestion des membres, y compris la création, la mise à jour et la récupération de leurs informations. </br> Un membre est tout utilisateur qui désire ou à adhérer à la communauté de Data Afrique Hub"
+    },
+    {
+      "name": "Participants",
+      "description": "Endpoints relatifs à la gestion des membres, y compris la création, la mise à jour et la récupération de leurs informations. </br> Un membre est tout utilisateur qui désire ou à adhérer à la communauté de Data Afrique Hub"
     },
     {
       "name": "Événements",
@@ -67,7 +79,7 @@
             }
           },
           "responses": {
-            "201": {
+            "200": {
               "description": "Utilisateur créé avec succès.",
               "content": {
                 "application/json": {
@@ -113,6 +125,14 @@
           "summary":"Avoir tous les utilisateurs dans la BD",     
           "description": "Avoir tous les utilisateurs dans la BD",
           "operationId":"getUsers",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
           "responses":{
                       "200":{
                           "description": "Renvoie une collection d'utilisateurs",
@@ -174,6 +194,12 @@
   
                       "404": {
                           "description": "Renvoie une erreur, aucun élément trouvé"   
+                      },
+                      "405": {
+                        "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                      },
+                      "400": {
+                        "description": "Le token n'est pas valid"
                       }
               }
         }
@@ -195,8 +221,15 @@
                 "schema":{
                     "type": "string"
                 }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
             }
         ],
+        
         "responses":{
                     "200":{
                         "description": "Renvoie un utilisateur",
@@ -229,15 +262,30 @@
                     },
 
                     "404": {
-                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                        "description": "Renvoie une erreur, aucun élément trouvé",
+                        "content":{
+                            "application/json":{
+                              "example":{
+                                "errors": {
+                                  "msg": "User not found"
+                              }
+                              }
+                            }
+                          }   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
                     }
                 }
       },
 
       "put":{
         "tags":["Utilisateurs"],
-        "summary":"Modifier les informations de d'utilisateur",
-        "description": "Modifier les information de compte utilisateur à partir de l'id du compte",
+        "summary":"Modifier les informations d'un utilisateur",
+        "description": "Modifier les information d'un utilisateur à partir de l'id du compte",
         "operationId":"getUser",
         "parameters": [
             {
@@ -248,6 +296,12 @@
                 "schema":{
                     "type": "string"
                 }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
             }
         ],
         "requestBody": {
@@ -316,6 +370,12 @@
 
                     "404": {
                         "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
                     }
                 }
 
@@ -335,6 +395,12 @@
                 "schema":{
                     "type": "string"
                 }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
             }
         ],
         "responses":{
@@ -353,6 +419,12 @@
 
                     "404": {
                         "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
                     }
                 }
 
