@@ -454,10 +454,11 @@
                                   } 
                                 },
                                 "example":{
-                                  "email":"merveilhouenagnon@gmail.com",
+                                  "username":"John", 
+                                  "email":"jean.kouadio@example.com",
                                   "password": "AZErty#_55",
-                                  "role":"membre departement IT" 
-                                }
+                                  "account_type":"membre departement IT" 
+                               }
                             }
                         }
                     }
@@ -468,34 +469,57 @@
                         "content":{
                             "application/json": {
                                 "example":{
-                                  "message": "Compte créé avec succès.",
-                                  "compte": {
-                                      "id": "ef16339c-a37d-4a0d-a02a-abbf6f55804b",
-                                      "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                      "login": "merveilhouenagnon@gmail.com",
-                                      "mot_de_passe": "$2b$10$rcXibmBJUdxpJnkm3mmZc.tx7JOkIQK.7WfwTtOjN9OB7lk8KAgYK",
-                                      "role": "membre departement IT",
-                                      "updatedAt": "2025-01-12T14:14:09.282Z",
-                                      "createdAt": "2025-01-12T14:14:09.282Z"
-                                  }
-                                }
+                                  "message": "Compte créé avec succès."
+                              }
                             }
                         }
                     },
-                
-                    "404": {
-                        "description": "L'email n'existe pas dans la base de données",
+                    "400": {
+                        "description": "L'utilisateur n'est pas encore créer",
                         "content":{
                           "application/json":{
                             "example":{
-                              "message": "Email non trouvé dans la base de données"
+                              "message": "L'utilisateur n'est pas encore créer"
                             }
                           }
                         }
                     },
-
-                    "400": {
-                        "description": "Mauvaise requête"
+                
+                    "402": {
+                        "description": "Nom d'utilisateur déjà utilisé",
+                        "content":{
+                          "application/json":{
+                            "example":{
+                              "message": "Cet nom d'utilisateur est déjà utilisé"
+                            }
+                          }
+                        }
+                    },
+                    "403": {
+                        "description": "Le compte existe déjà",
+                        "content":{
+                          "application/json":{
+                            "example":{
+                              "message": "Cet utilisateur a déjà un compte"
+                            }
+                          }
+                        }
+                    }, 
+                    
+                    "404": {
+                      "description": "Utilisation créer mais n'est pas encore membre",
+                      "content":{
+                        "application/json":{
+                          "example":{
+                            "message": "L'utilisateur n'est pas encore enregistrer comme membre"
+                          }
+                        }
+                      }
+                  },
+                    
+                    
+                    "500":{
+                      "description":"Erreur serveur"
                     }
                 }
       }, 
@@ -521,104 +545,41 @@
                                   "message": "Comptes récupérés avec succès.",
                                   "comptes": [
                                       {
-                                          "id": "09a8a5b5-cdb2-4cca-8a7a-bd6fa13f69b3",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$p/3j3SP9Eg3IbuyUuCWbk.h2QSMwLkUVolDkbPPLB4FrKzhNf9NxW",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:14:06.000Z",
-                                          "updatedAt": "2025-01-12T14:14:06.000Z"
+                                          "id": "09935697-fa98-4b70-ae60-1eee8ea95924",
+                                          "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                          "username": "John2",
+                                          "password": "$2b$10$TsrgHlREvKJ3PVyDTepvjuktxNSvDMHDAUVWdGWSiPuRomdDjJgdy",
+                                          "email": "jean.eude@example.com",
+                                          "account_type": "membre",
+                                          "createdAt": "2025-02-14T18:44:47.000Z",
+                                          "updatedAt": "2025-02-14T18:44:47.000Z"
                                       },
                                       {
-                                          "id": "61895d5a-a254-4507-ae37-2c75e1027908",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$g7kFgDU.UIE7I8h24Rwc3.72iVynsIQURm03RIacGPKlH/qqINCAu",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:23:59.000Z",
-                                          "updatedAt": "2025-01-12T14:23:59.000Z"
-                                      },
-                                      {
-                                          "id": "67978932-c7da-41cc-8224-52d76d03df5d",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$rjJb9MPBXYWXriMBNC7QIugl1TgEiJ5nQN7E4UuPLYu3eFkcdwV8W",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:14:07.000Z",
-                                          "updatedAt": "2025-01-12T14:14:07.000Z"
-                                      },
-                                      {
-                                          "id": "6e13b4fc-66c6-4e27-b56e-486dfbda2f12",
-                                          "id_personne": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
-                                          "login": "thomasanges@gmail.com",
-                                          "mot_de_passe": "$2b$10$H75wHqMEV5BUUdiNVTAPhu5DFR5Nwt8pf11TMg0dXkJYqTRWqreEm",
-                                          "role": "Lead IT",
-                                          "createdAt": "2025-01-12T14:33:43.000Z",
-                                          "updatedAt": "2025-01-12T14:33:43.000Z"
-                                      },
-                                      {
-                                          "id": "764bc3cb-ea2e-4953-bc4f-43fb50f1e4fe",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$PqGBVtZhyW01aByrmKVb9e9iRx5cf3RyUX15UB4xhJoY1qzVWY/HW",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:28:22.000Z",
-                                          "updatedAt": "2025-01-12T14:28:22.000Z"
-                                      },
-                                      {
-                                          "id": "c03104aa-5f1a-4fbc-9ac5-7e8d926d104b",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$Tv68SeegIOL6WiA7zqTph.czsaiqmaSfnseBXJZ7F/6hGmz///J22",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:13:31.000Z",
-                                          "updatedAt": "2025-01-12T14:13:31.000Z"
-                                      },
-                                      {
-                                          "id": "c2e5216e-797c-48a0-8dea-ec3c367cec55",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$FbR.XOe4Eyh..tUzUgiTmOqv9dLk8OvFvrbK9O9fLr/KryrU4cnz2",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:31:04.000Z",
-                                          "updatedAt": "2025-01-12T14:31:04.000Z"
-                                      },
-                                      {
-                                          "id": "c71bb303-a3b6-4672-a28e-5e346be46841",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$OST6lsbYUWxC5sWAzsssm.r.TTODcnHSDQj2wm00j.4yudQzj5lsC",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:31:13.000Z",
-                                          "updatedAt": "2025-01-12T14:31:13.000Z"
-                                      },
-                                      {
-                                          "id": "ca11cad3-9d0b-4865-9374-1b38e874eb42",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$KQ.UwiqbfbRbGRanJnlTbOwBM8l8xyeQrm2.i53kRg13w/XUoUVcK",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:13:38.000Z",
-                                          "updatedAt": "2025-01-12T14:13:38.000Z"
-                                      },
-                                      {
-                                          "id": "ef16339c-a37d-4a0d-a02a-abbf6f55804b",
-                                          "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                          "login": "merveilhouenagnon@gmail.com",
-                                          "mot_de_passe": "$2b$10$rcXibmBJUdxpJnkm3mmZc.tx7JOkIQK.7WfwTtOjN9OB7lk8KAgYK",
-                                          "role": "membre departement IT",
-                                          "createdAt": "2025-01-12T14:14:09.000Z",
-                                          "updatedAt": "2025-01-12T14:14:09.000Z"
+                                          "id": "16b1d883-c815-438e-bb6b-aeeb3dba21e5",
+                                          "member_id": "bd52bd10-7711-4a11-af41-8b8eb13bae40",
+                                          "username": "John",
+                                          "password": "$2b$10$sACmmOBLq1sK6PNuVi2qneGqmAf/NghhHVDIUbNEBvq8Hl0oi7xoi",
+                                          "email": "jean.kouadio@example.com",
+                                          "account_type": "membre departement IT",
+                                          "createdAt": "2025-02-14T16:09:39.000Z",
+                                          "updatedAt": "2025-02-14T16:09:39.000Z"
                                       }
                                   ]
                                 }
                             }
                         }
                     },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    },
 
                     "404": {
-                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                      "description": "Mauvaise requête"
+                  },
+                  "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
                     }
+                
             }
       }
     },
@@ -653,21 +614,29 @@
                                 "example":{
                                   "message": "Compte récupéré avec succès.",
                                   "compte": {
-                                      "id": "09a8a5b5-cdb2-4cca-8a7a-bd6fa13f69b3",
-                                      "id_personne": "c629e9a3-6723-40cf-9abd-8cd0e02669d9",
-                                      "login": "merveilhouenagnon@gmail.com",
-                                      "mot_de_passe": "$2b$10$p/3j3SP9Eg3IbuyUuCWbk.h2QSMwLkUVolDkbPPLB4FrKzhNf9NxW",
-                                      "role": "membre departement IT",
-                                      "createdAt": "2025-01-12T14:14:06.000Z",
-                                      "updatedAt": "2025-01-12T14:14:06.000Z"
+                                      "id": "16b1d883-c815-438e-bb6b-aeeb3dba21e5",
+                                      "member_id": "bd52bd10-7711-4a11-af41-8b8eb13bae40",
+                                      "username": "John",
+                                      "password": "$2b$10$sACmmOBLq1sK6PNuVi2qneGqmAf/NghhHVDIUbNEBvq8Hl0oi7xoi",
+                                      "email": "jean.kouadio@example.com",
+                                      "account_type": "membre departement IT",
+                                      "createdAt": "2025-02-14T16:09:39.000Z",
+                                      "updatedAt": "2025-02-14T16:09:39.000Z"
                                   }
                                 }
                             }
                         }
                     },
 
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    },
+
                     "404": {
-                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                      "description": "Mauvaise requête"
+                    },
+                  "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
                     }
                 }
       },
@@ -699,9 +668,10 @@
           "content": {
             "application/json": {
               "example": {
-                "email":"thomasanges@gmail.com",
-                "password": "12345",
-                "role":"Lead Lead" 
+                  "username":"John1", 
+                  "email":"jean.eude@example.com",
+                  "password": "AZErty#_55",
+                  "account_type":"membre" 
               }
             }
           }
@@ -714,21 +684,41 @@
                                 "example":{
                                   "message": "Compte mis à jour avec succès.",
                                   "compte": {
-                                      "id": "6e13b4fc-66c6-4e27-b56e-486dfbda2f12",
-                                      "id_personne": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
-                                      "login": "thomasanges@gmail.com",
-                                      "mot_de_passe": "$2b$10$vTipwRLw96sFo7IgeP112uF74MccbAKRzxHK5PSK8jGm8muOU88Ti",
-                                      "role": "Lead Lead",
-                                      "createdAt": "2025-01-12T14:33:43.000Z",
-                                      "updatedAt": "2025-01-12T17:00:30.917Z"
+                                      "id": "1d9da530-0a61-43fa-9b14-3429d9c7f634",
+                                      "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                      "username": "John1",
+                                      "password": "$2b$10$jRmiHHwojBOW6YeFxdjS1./Kw5pULWSxbPMVeJ1Q6EY3hjpjXEBOm",
+                                      "email": "jean.eude@example.com",
+                                      "account_type": "membre",
+                                      "createdAt": "2025-02-14T18:55:06.000Z",
+                                      "updatedAt": "2025-02-14T19:41:24.787Z"
                                   }
                                 }
                             }
                         }
                     },
 
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    },
+                    "401": {
+                      "description": "Compte non trouvé."   
+                    },
+
+                    "402": {
+                      "description": "L'utilisateur n'est pas encore créé."
+                    },
                     "404": {
-                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                      "description": "Ce nom d'utilisateur est déjà utilisé par un autre compte."
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "409": {
+                      "description": "Cet email est déjà utilisé par un autre compte."
+                    },
+                  "500": {
+                      "description": "Erreur lors de la mise à jour du compte"
                     }
                 }
 
@@ -767,10 +757,15 @@
                             }
                         }
                     },
-
-                    "404": {
-                        "description": "Renvoie une erreur, aucun élément trouvé"   
-                    }
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    },
+                    "401": {
+                        "description": "Compte non trouvé."   
+                    },
+                    "500": {
+                        "description": "Erreur lors de la mise à jour du compte"
+                      }
                 }
 
       }
@@ -791,13 +786,13 @@
                                   "email":{
                                     "type": "string"
                                   },
-                                  "motDePasse": {
+                                  "password": {
                                     "type": "string"
                                   }
                                 },
                                 "example":{
-                                  "email":"thomasanges@gmail.com",
-                                  "motDePasse": "12345"
+                                     "email":"jean.kouadio@example.com",
+                                     "password": "AZErty#_55"
                                 }
                             }
                         }
@@ -809,30 +804,40 @@
                         "content":{
                             "application/json": {
                                 "example":{
-                                  "user": {
-                                    "id": "8450cfcd-b5e3-4341-8049-8cd5527b2c15",
-                                    "nom": "ANGES",
-                                    "prenom": "Thomas",
-                                    "sexe": "Homme",
-                                    "email": "thomasanges@gmail.com",
-                                    "pays_residence": "Benin",
-                                    "profession": "Etudiant",
-                                    "abonne_newsletter": true,
-                                    "nationalite": "Benin",
-                                    "niveau_etude": "BTS",
-                                    "domaine_etudes": "",
-                                    "createdAt": "2025-01-12T13:32:46.000Z",
-                                    "updatedAt": "2025-01-12T13:32:46.000Z"
+                                  "logger": {
+                                    "email": "jean.kouadio@example.com",
+                                    "username": "John",
+                                    "member_id": "bd52bd10-7711-4a11-af41-8b8eb13bae40"
                                 },
-                                "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRob21hc2FuZ2VzQGdtYWlsLmNvbSIsImlhdCI6MTczNjY5MjQ1MiwiZXhwIjoxNzM2Njk2MDUyfQ.jj96EDBf91FOZOvS-vQ7a-uzIhmsd4TK_pOqUT2e1uo",
-                                "role": "Lead IT"
+                                "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImplYW4ua291YWRpb0BleGFtcGxlLmNvbSIsImlhdCI6MTczOTU1ODE3NywiZXhwIjoxNzM5NTYxNzc3fQ.RT3Ab4SoiMtJLRG-ZThcpx-1v49SPsVebJ-PjkwDr1I",
+                                "role": "membre departement IT"
                                 }
                             }
                         }
                     },
+
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    },
+                    "401": {
+                        "description": "Compte non trouvé."   
+                    },
+                    
                 
+                    "403": {
+                        "description": "Mot de passe incorrect",
+                        "content":{
+                          "application/json":{
+                            "example":{
+                              "errors": {
+                                "msg": "invalid credentials"
+                            }
+                            }
+                          }
+                        }
+                    },
                     "404": {
-                        "description": "L'email n'existe pas dans la base de données",
+                        "description": "Email n'existe pas",
                         "content":{
                           "application/json":{
                             "example":{
@@ -844,8 +849,8 @@
                         }
                     },
 
-                    "400": {
-                        "description": "Mauvaise requête"
+                    "500": {
+                        "description": "Erreur interne du serveur."
                     }
                 }
       }
@@ -866,30 +871,34 @@
                       "example":{
                         "event": [
                           {
-                              "id": "345a1fef-edf9-45b3-a8d9-22535377deb4",
-                              "nom": "Découvrez le métier de la Data Analysis",
-                              "type_event": "Formation",
-                              "description": "L'événement a exploré l'univers captivant de l'analyse de données, en mettant....",
-                              "date_event": "2025-01-16T11:38:00.000Z",
-                              "date_fin_inscription": "2025-01-16T11:38:00.000Z",
-                              "lieu_event": "En ligne",
-                              "lien_event": "https://youtu.be/PuY4Y0gDxL4",
-                              "image_event": "http://localhost:3001//uploads/images_events/1737470468522.png",
-                              "createdAt": "2025-01-21T14:41:08.000Z",
-                              "updatedAt": "2025-01-21T14:41:08.000Z"
+                              "id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                              "title": "Nouveau titre de l'événement",
+                              "description": "Description mise à jour",
+                              "event_type": "Conférence",
+                              "photo": "http://localhost:3001/uploads/images_events/1739442844357.png",
+                              "address": "En ligne",
+                              "location": "Dakar, Sénégal",
+                              "link": "https://example.com/evenement",
+                              "start_date": "2025-03-15T00:00:00.000Z",
+                              "end_date": "2025-03-20T00:00:00.000Z",
+                              "end_date_register": "2025-03-10T00:00:00.000Z",
+                              "createdAt": "2025-02-13T10:34:04.000Z",
+                              "updatedAt": "2025-02-13T13:42:22.000Z"
                           },
                           {
-                              "id": "b8adbe9b-399b-49c3-8ad4-1f90b20372cf",
-                              "nom": "Piloter l’innovation et la performance au sein d’une entreprise grâce au métier de data analyst",
-                              "type_event": "Webinaire",
-                              "description": "Ce webinaire met en lumière le rôle essentiel du Data Analyst dans.......",
-                              "date_event": "2025-01-16T11:38:00.000Z",
-                              "date_fin_inscription": "2025-01-16T11:38:00.000Z",
-                              "lieu_event": "En ligne",
-                              "lien_event": "https://youtu.be/PuY4Y0gDxL4",
-                              "image_event": "http://localhost:3001//uploads/images_events/1737471647445.png",
-                              "createdAt": "2025-01-21T15:00:47.000Z",
-                              "updatedAt": "2025-01-21T15:00:47.000Z"
+                              "id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                              "title": "Conférence sur l'IA en Afrique",
+                              "description": "Un événement dédié à l'intelligence artificielle et son impact en Afrique.",
+                              "event_type": "Conférence",
+                              "photo": "http://localhost:3001/uploads/images_events/1739454583520.png",
+                              "address": null,
+                              "location": "Abidjan, Côte d'Ivoire",
+                              "link": "https://sommet-ia.africa",
+                              "start_date": "2025-02-20T00:00:00.000Z",
+                              "end_date": "2025-02-22T00:00:00.000Z",
+                              "end_date_register": "2025-02-15T00:00:00.000Z",
+                              "createdAt": "2025-02-13T13:49:43.000Z",
+                              "updatedAt": "2025-02-13T13:49:43.000Z"
                           }
                       ]
                       }
@@ -911,61 +920,17 @@
           "required": true,
           "content": {
             "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "nom_event": {
-                    "type": "string",
-                    "example": "Piloter l’innovation et la performance au sein d’une entreprise grâce au métier de data analyst"
-                  },
-                  "type_event": {
-                    "type": "string",
-                    "example": "Webinaire"
-                  },
-                  "description_event": {
-                    "type": "string",
-                    "example": "Ce webinaire met en lumière le rôle essentiel du Data Analyst..."
-                  },
-                  "date_event": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2025-01-16T12:38"
-                  },
-                  "date_fin_inscription": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2025-01-16T12:38"
-                  },
-                  "lieu_event": {
-                    "type": "string",
-                    "example": "En ligne"
-                  },
-                  "lien_event": {
-                    "type": "string",
-                    "example": "https://youtu.be/PuY4Y0gDxL4"
-                  },
-                  "email_intervenant": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "merveilhouenagnon@gmail.com"
-                  },
-                  "image_event": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "Fichier image associé à l'événement."
-                  }
-                },
-                "required": [
-                  "nom_event",
-                  "type_event",
-                  "description_event",
-                  "date_event",
-                  "date_fin_inscription",
-                  "lieu_event",
-                  "lien_event",
-                  "email_intervenant",
-                  "image_event"
-                ]
+              "example":{
+                  "title": "Conférence sur l'IA en Afrique",
+                  "event_type": "Conférence",
+                  "description": "Un événement dédié à l'intelligence artificielle et son impact en Afrique.",
+                  "start_date": "2025-02-20",
+                  "end_date": "2025-02-22",
+                  "end_date_register": "2025-02-15",
+                  "location": "Abidjan, Côte d'Ivoire",
+                  "link": "https://sommet-ia.africa",
+                  "speaker_email": "jean.eude@example.com",
+                  "image_event": "votre_image.png"
               }
             }
           }
@@ -1032,7 +997,7 @@
             "description": "Identifiant unique de l'événement.",
             "schema": {
               "type": "string",
-              "example": "12345"
+              "example": "bd52bd10-7711-4a11-af41-8b8eb13bae40"
             }
           }
         ],
@@ -1042,16 +1007,23 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "12345",
-                  "nom_event": "Piloter l’innovation et la performance...",
-                  "type_event": "Webinaire",
-                  "description_event": "Ce webinaire met en lumière...",
-                  "date_event": "2025-01-16T12:38",
-                  "date_fin_inscription": "2025-01-16T12:38",
-                  "lieu_event": "En ligne",
-                  "lien_event": "https://youtu.be/PuY4Y0gDxL4",
-                  "email_intervenant": "merveilhouenagnon@gmail.com",
-                  "image_event_url": "/uploads/images_events/1737473145468.png"
+                  
+                    "event": {
+                        "id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                        "title": "Sommet sur l'IA en Afrique update",
+                        "description": "Un événement dédié à l'intelligence artificielle et son impact en Afrique update.",
+                        "event_type": "Conférence update",
+                        "photo": "/uploads/images_events/1739442844357.png",
+                        "address": "Good",
+                        "location": "Abidjan, Côte d'Ivoire",
+                        "link": "https://sommet-ia.africa",
+                        "start_date": "2025-02-20T00:00:00.000Z",
+                        "end_date": "2025-02-22T00:00:00.000Z",
+                        "end_date_register": "2025-02-15T00:00:00.000Z",
+                        "createdAt": "2025-02-13T10:34:04.000Z",
+                        "updatedAt": "2025-02-14T20:49:32.000Z"
+                    }
+                
                 }
               }
             }
@@ -1080,7 +1052,7 @@
             "description": "Identifiant unique de l'événement.",
             "schema": {
               "type": "string",
-              "example": "12345"
+              "example": "bd52bd10-7711-4a11-af41-8b8eb13bae40"
             }
           }
         ],
@@ -1088,23 +1060,17 @@
           "required": true,
           "content": {
             "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "nom_event": { "type": "string", "example": "Nom mis à jour de l'événement" },
-                  "type_event": { "type": "string", "example": "Atelier" },
-                  "description_event": { "type": "string", "example": "Description mise à jour..." },
-                  "date_event": { "type": "string", "format": "date-time", "example": "2025-01-18T10:00" },
-                  "date_fin_inscription": { "type": "string", "format": "date-time", "example": "2025-01-17T18:00" },
-                  "lieu_event": { "type": "string", "example": "En ligne" },
-                  "lien_event": { "type": "string", "example": "https://lien.mis-a-jour.com" },
-                  "email_intervenant": { "type": "string", "format": "email", "example": "nouveau.email@gmail.com" },
-                  "image_event": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "Nouvelle image associée à l'événement."
-                  }
-                }
+              "example": {
+                  "title": "Conférence sur l'IA en Afrique",
+                  "event_type": "Conférence",
+                  "description": "Un événement dédié à l'intelligence artificielle et son impact en Afrique.",
+                  "start_date": "2025-02-20",
+                  "end_date": "2025-02-22",
+                  "end_date_register": "2025-02-15",
+                  "location": "Abidjan, Côte d'Ivoire",
+                  "link": "https://sommet-ia.africa",
+                  "speaker_email": "jean.eude@example.com",
+                  "image_event": "votre_image.png"
               }
             }
           }
@@ -1115,8 +1081,22 @@
             "content": {
               "application/json": {
                 "example": {
-                  "message": "Événement mis à jour avec succès.",
-                  "event_id": "12345"
+                  "message": "Événement mis à jour avec succès",
+                  "event": {
+                      "id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                      "title": "Sommet sur l'IA en Afrique update",
+                      "description": "Un événement dédié à l'intelligence artificielle et son impact en Afrique update.",
+                      "event_type": "Conférence update",
+                      "photo": "/uploads/images_events/1739442844357.png",
+                      "address": "Good",
+                      "location": "Abidjan, Côte d'Ivoire",
+                      "link": "https://sommet-ia.africa",
+                      "start_date": "2025-02-20T00:00:00.000Z",
+                      "end_date": "2025-02-22T00:00:00.000Z",
+                      "end_date_register": "2025-02-15T00:00:00.000Z",
+                      "createdAt": "2025-02-13T10:34:04.000Z",
+                      "updatedAt": "2025-02-14T20:49:32.970Z"
+                  }
                 }
               }
             }
@@ -1155,7 +1135,7 @@
             "description": "Identifiant unique de l'événement.",
             "schema": {
               "type": "string",
-              "example": "12345"
+              "example": "b18b8738-501e-4cfc-9b8e-ca3217031840"
             }
           }
         ],
@@ -1206,47 +1186,41 @@
             "description": "Liste paginée d'événements récupérée avec succès.",
             "content": {
               "application/json": {
-                "examples": {
-                  "with_events": {
-                    "summary": "Événements trouvés",
-                    "value": {
-                      "currentPage": 1,
-                      "events": [
-                        {
-                          "id": "345a1fef-edf9-45b3-a8d9-22535377deb4",
-                          "nom": "Découvrez le métier de la Data Analysis",
-                          "type_event": "Formation",
-                          "description": "L'événement a exploré l'univers captivant de l'analyse de données, en mettant en lumière les fondamentaux du métier de Data Analyst. Les participants ont eu l'occasion de découvrir les rôles et responsabilités associés à cette profession, ainsi que les compétences clés nécessaires pour réussir dans ce domaine en pleine expansion.",
-                          "date_event": "2025-01-16T11:38:00.000Z",
-                          "date_fin_inscription": "2025-01-16T11:38:00.000Z",
-                          "lieu_event": "En ligne",
-                          "lien_event": "https://youtu.be/PuY4Y0gDxL4",
-                          "image_event": "http://localhost:3001//uploads/images_events/1737470468522.png",
-                          "createdAt": "2025-01-21T14:41:08.000Z",
-                          "updatedAt": "2025-01-21T14:41:08.000Z"
-                        },
-                        {
-                          "id": "b8adbe9b-399b-49c3-8ad4-1f90b20372cf",
-                          "nom": "Piloter l’innovation et la performance au sein d’une entreprise grâce au métier de data analyst",
-                          "type_event": "Webinaire",
-                          "description": "Ce webinaire met en lumière le rôle essentiel du Data Analyst dans l'optimisation des performances et l'innovation au sein des entreprises. À travers des exemples concrets, les participants découvrent comment l'analyse des données permet de mieux comprendre les dynamiques internes, d’anticiper les tendances du marché et de prendre des décisions stratégiques éclairées.",
-                          "date_event": "2025-01-16T11:38:00.000Z",
-                          "date_fin_inscription": "2025-01-16T11:38:00.000Z",
-                          "lieu_event": "En ligne",
-                          "lien_event": "https://youtu.be/PuY4Y0gDxL4",
-                          "image_event": "http://localhost:3001//uploads/images_events/1737471647445.png",
-                          "createdAt": "2025-01-21T15:00:47.000Z",
-                          "updatedAt": "2025-01-21T15:00:47.000Z"
-                        }
-                      ],
-                      "next": 0
-                    }
-                  },
-                  "no_events": {
-                    "summary": "Aucun événement trouvé",
-                    "value": {
-                      "message": "Aucun événement trouvé"
-                    }
+                "example": { 
+                  "currentPage": 1,
+                  "events": [
+                      {
+                          "id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                          "title": "Sommet sur l'IA en Afrique update",
+                          "description": "Un événement dédié à l'intelligence artificielle et son impact en Afrique update.",
+                          "event_type": "Conférence update",
+                          "photo": "http://localhost:3001/uploads/images_events/1739442844357.png",
+                          "address": "Good",
+                          "location": "Abidjan, Côte d'Ivoire",
+                          "link": "https://sommet-ia.africa",
+                          "start_date": "2025-02-20T00:00:00.000Z",
+                          "end_date": "2025-02-22T00:00:00.000Z",
+                          "end_date_register": "2025-02-15T00:00:00.000Z",
+                          "createdAt": "2025-02-13T10:34:04.000Z",
+                          "updatedAt": "2025-02-14T20:49:32.000Z"
+                      },
+                      {
+                          "id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                          "title": "Conférence sur l'IA en Afrique",
+                          "description": "Un événement dédié à l'intelligence artificielle et son impact en Afrique.",
+                          "event_type": "Conférence",
+                          "photo": "http://localhost:3001/uploads/images_events/1739454583520.png",
+                          "address": null,
+                          "location": "Abidjan, Côte d'Ivoire",
+                          "link": "https://sommet-ia.africa",
+                          "start_date": "2025-02-20T00:00:00.000Z",
+                          "end_date": "2025-02-22T00:00:00.000Z",
+                          "end_date_register": "2025-02-15T00:00:00.000Z",
+                          "createdAt": "2025-02-13T13:49:43.000Z",
+                          "updatedAt": "2025-02-13T13:49:43.000Z"
+                      }
+                  ],
+                  "next": 0
                   }
                 }
               }
@@ -1273,10 +1247,858 @@
             }
           }
         }
+      },
+    
+    "/members":{
+      "post":{
+          "tags": ["Membres"],
+          "summary": "Créer un nouveau membre",
+          "description": "Cet endpoint permet de créer un nouveau membre en fournissant les informations",
+          "operationId": "createMember",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Informations pour la création",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                            "first_name": "Aminata",
+                            "last_name": "Diallo",
+                            "email": "amina.diallo@example.com",
+                            "phone": "+2250701020304",
+                            "resident_country": "Côte d'Ivoire",
+                            "nationality": "Ivoirienne",
+                            "gender": "F",
+                            "job_title": "Data Scientist",
+                            "job_description": "Analyse des données pour améliorer la prise de décision.",
+                            "organization_name": "Data Afrique Hub",
+                            "organization_country": "Sénégal",
+                            "organization_type": "ONG",
+                            "skills": "Machine Learning, Deep Learning, Python, Data Visualization",
+                            "motivation": "Je souhaite contribuer au développement de l'IA en Afrique.",
+                            "department_wished": "Recherche et Développement"
+                        }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie le membre créé",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Member created successfully",
+                                  "member": {
+                                      "id": "87e6a3d0-434c-4551-a017-1a1dea44775c",
+                                      "status": "pending",
+                                      "skills": "[\"Machine Learning\",\"Deep Learning\",\"Python\",\"Data Visualization\"]",
+                                      "motivation": "Je souhaite contribuer au développement de l'IA en Afrique.",
+                                      "department_wished": "Recherche et Développement",
+                                      "person_id": "278f88b9-dcf0-4b81-afc3-b2aee11eaf09"
+                                  }
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+        },
+      
+      "get":{
+        "tags": ["Membres"],
+          "summary": "Récupérer en collection tous les membres",
+          "description": "Cet endpoint permet de récupérer en collection tous les membres",
+          "operationId": "getMember",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "responses":{
+                    "200":{
+                        "description": "Renvoie tous les membres",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "members": [
+                                    {
+                                        "id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                        "status": "pending",
+                                        "member_type": null,
+                                        "skills": "[\"Computer Vision\",\"TensorFlow\",\"Python\",\"Big Data\"]",
+                                        "motivation": "Passionné par l'IA, je veux participer à des projets innovants.",
+                                        "department_wished": "Développement logiciel",
+                                        "person_id": "0abf1ab3-ab4a-41a9-9069-fddee6e23449",
+                                        "profile_picture": null,
+                                        "rejection_reason": null,
+                                        "request_date": "2025-02-12T10:54:44.000Z",
+                                        "processed_date": null
+                                    },
+                                    {
+                                        "id": "87e6a3d0-434c-4551-a017-1a1dea44775c",
+                                        "status": "pending",
+                                        "member_type": null,
+                                        "skills": "[\"Machine Learning\",\"Deep Learning\",\"Python\",\"Data Visualization\"]",
+                                        "motivation": "Je souhaite contribuer au développement de l'IA en Afrique.",
+                                        "department_wished": "Recherche et Développement",
+                                        "person_id": "278f88b9-dcf0-4b81-afc3-b2aee11eaf09",
+                                        "profile_picture": null,
+                                        "rejection_reason": null,
+                                        "request_date": "2025-02-14T21:52:29.000Z",
+                                        "processed_date": null
+                                    }
+                                ]
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
       }
+    },
+    "/members/{id}":{
+      "get":{
+        "tags": ["Membres"],
+          "summary": "Récupérer un membre à partir de son identifiant",
+          "description": "Récupérer un membre à partir de son identifiant",
+          "operationId": "returnMember",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoi le membre identifié",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "member": {
+                                    "id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                    "status": "pending",
+                                    "member_type": null,
+                                    "skills": "[\"Computer Vision\",\"TensorFlow\",\"Python\",\"Big Data\"]",
+                                    "motivation": "Passionné par l'IA, je veux participer à des projets innovants.",
+                                    "department_wished": "Développement logiciel",
+                                    "person_id": "0abf1ab3-ab4a-41a9-9069-fddee6e23449",
+                                    "profile_picture": null,
+                                    "rejection_reason": null,
+                                    "request_date": "2025-02-12T10:54:44.000Z",
+                                    "processed_date": null
+                                }
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+
+      "put":{
+        "tags": ["Membres"],
+          "summary": "Modifier un membre",
+          "description": "Cet endpoint permet de faire la modification des informations d'un membre",
+          "operationId": "updateMembre",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Informations pour la création",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                            "first_name": "Jean",
+                            "last_name": "Eude",
+                            "email": "jean.eude@example.com",
+                            "phone": "+2250705060708",
+                            "resident_country": "Mali",
+                            "nationality": "Malienne",
+                            "gender": "F",
+                            "job_title": "AI Engineer",
+                            "job_description": "Développe des solutions d'IA pour divers secteurs.",
+                            "organization_name": "AI for Africa",
+                            "organization_country": "Mali",
+                            "organization_type": "Startup",
+                            "skills": ["NLP", "Computer Vision", "Python"],
+                            "motivation": "Apporter des solutions IA innovantes en Afrique.",
+                            "department_wished": "Innovation",
+                            "status": "approved"
+                      }
+                      
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Membre mis à jour avec succès",
+                                  "member": {
+                                      "id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                      "status": "pending",
+                                      "member_type": null,
+                                      "skills": "[\"NLP\",\"Computer Vision\",\"Python\"]",
+                                      "motivation": "Apporter des solutions IA innovantes en Afrique.",
+                                      "department_wished": "Innovation",
+                                      "person_id": "0abf1ab3-ab4a-41a9-9069-fddee6e23449",
+                                      "profile_picture": null,
+                                      "rejection_reason": null,
+                                      "request_date": "2025-02-12T10:54:44.000Z",
+                                      "processed_date": null
+                                  }
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "delete":{
+        "tags": ["Membres"],
+          "summary": "Créer un nouvel .....",
+          "description": "Cet endpoint permet de créer un nouvel ..... en fournissant les informations",
+          "operationId": "createUser",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie membre supprimé avec succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Member deleted successfully"
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+    "/members/approuved/{id}":{
+      "put":{
+        "tags": ["Membres"],
+          "summary": "C'est pour mettre à l'utilisateur de changer le status ",
+          "description": "Cet endpoint permet pour mettre à l'utilisateur de changer le status d'un membres en refuser ou approuver après l'étude de sa candidature",
+          "operationId": "updateStatus",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Corps de la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "status": "rejected",
+                          "member_type": "admin",
+                          "rejection_reason": "Profil not match"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie membre mis à jour avec succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Membre mis à jour avec succès",
+                                  "member": {
+                                      "id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                      "status": "rejected",
+                                      "member_type": "admin",
+                                      "skills": "[\"NLP\",\"Computer Vision\",\"Python\"]",
+                                      "motivation": "Apporter des solutions IA innovantes en Afrique.",
+                                      "department_wished": "Innovation",
+                                      "person_id": "0abf1ab3-ab4a-41a9-9069-fddee6e23449",
+                                      "profile_picture": null,
+                                      "rejection_reason": "Profil not match",
+                                      "request_date": "2025-02-12T10:54:44.000Z",
+                                      "processed_date": "2025-02-15T13:19:47.493Z"
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/sponsors":{
+      "post":{
+        "tags": ["Sponsors"],
+          "summary": "Créer un nouvel sponsors",
+          "description": "Cet endpoint permet de créer un noouveu sponsors en fournissant les informations",
+          "operationId": "createSponsor",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Informations pour la création",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "first_name": "Merveil",
+                          "last_name": "Houenagnon",
+                          "email": "merveil5@example.com",
+                          "phone": "+22998765432",
+                          "resident_country": "Bénin",
+                          "nationality": "Béninoise",
+                          "gender": "M",
+                          "job_title": "Data Scientist",
+                          "job_description": "Spécialiste en IA et analyse de données",
+                          "organization_name": "Data Afrique Hub",
+                          "organization_country": "Bénin",
+                          "organization_type": "Association",
+                          "detail": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts."
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Sponsor created successfully",
+                                  "sponsor": {
+                                      "id": "45b5b014-fa3a-4f56-b57b-849ee22628e9",
+                                      "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                      "detail": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                                      "updatedAt": "2025-02-15T13:28:40.738Z",
+                                      "createdAt": "2025-02-15T13:28:40.738Z"
+                                  }
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "get":{
+        "tags": ["Sponsors"],
+          "summary": "Obtenir tous les sponsors",
+          "description": "Cet endpoint permet de recupérer tous les sponsors",
+          "operationId": "getSponsor",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie la liste de tous les sponsors présents dans la BD",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "sponsors": [
+                                    {
+                                        "id": "45b5b014-fa3a-4f56-b57b-849ee22628e9",
+                                        "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                        "detail": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                                        "createdAt": "2025-02-15T13:28:40.000Z",
+                                        "updatedAt": "2025-02-15T13:28:40.000Z",
+                                        "person": {
+                                            "id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                            "first_name": "Merveil",
+                                            "last_name": "Houenagnon",
+                                            "gender": "M",
+                                            "email": "merveil5@example.com",
+                                            "phone": "+22998765432",
+                                            "resident_country": "Bénin",
+                                            "nationality": "Béninoise",
+                                            "createdAt": "2025-02-13T16:00:18.000Z",
+                                            "updatedAt": "2025-02-13T16:00:18.000Z"
+                                        },
+                                        "appartenance": {
+                                            "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                            "organization_id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                            "title": "Data Scientist",
+                                            "description": "Spécialiste en IA et analyse de données",
+                                            "createdAt": "2025-02-13T16:00:18.000Z",
+                                            "updatedAt": "2025-02-13T16:00:18.000Z"
+                                        },
+                                        "organisme": {
+                                            "id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                            "name": "Data Afrique Hub",
+                                            "country": "Sénégal",
+                                            "type": "ONG",
+                                            "createdAt": "2025-02-13T14:32:42.000Z",
+                                            "updatedAt": "2025-02-14T21:52:29.000Z"
+                                        }
+                                    },
+                                    {
+                                        "id": "5674f10e-6fff-4440-bc93-e43c1812e1cc",
+                                        "person_id": "6e64387f-9bd0-46c1-84c6-873de987dc95",
+                                        "detail": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                                        "createdAt": "2025-02-13T15:55:02.000Z",
+                                        "updatedAt": "2025-02-13T15:55:02.000Z",
+                                        "person": {
+                                            "id": "6e64387f-9bd0-46c1-84c6-873de987dc95",
+                                            "first_name": "Merveil",
+                                            "last_name": "Houenagnon",
+                                            "gender": "M",
+                                            "email": "merveil1@example.com",
+                                            "phone": "+22998765432",
+                                            "resident_country": "Bénin",
+                                            "nationality": "Béninoise",
+                                            "createdAt": "2025-02-13T15:54:41.000Z",
+                                            "updatedAt": "2025-02-13T15:54:41.000Z"
+                                        },
+                                        "appartenance": {
+                                            "person_id": "6e64387f-9bd0-46c1-84c6-873de987dc95",
+                                            "organization_id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                            "title": "Data Scientist",
+                                            "description": "Spécialiste en IA et analyse de données",
+                                            "createdAt": "2025-02-13T15:54:41.000Z",
+                                            "updatedAt": "2025-02-13T15:54:41.000Z"
+                                        },
+                                        "organisme": {
+                                            "id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                            "name": "Data Afrique Hub",
+                                            "country": "Sénégal",
+                                            "type": "ONG",
+                                            "createdAt": "2025-02-13T14:32:42.000Z",
+                                            "updatedAt": "2025-02-14T21:52:29.000Z"
+                                        }
+                                    },
+                                    {
+                                        "id": "d3868a8f-1a6b-407e-a4e4-e7454f1bc20a",
+                                        "person_id": "8d88b23d-0920-40fe-a431-9a66a472c25c",
+                                        "detail": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                                        "createdAt": "2025-02-13T15:57:52.000Z",
+                                        "updatedAt": "2025-02-13T15:57:52.000Z",
+                                        "person": {
+                                            "id": "8d88b23d-0920-40fe-a431-9a66a472c25c",
+                                            "first_name": "Merveil",
+                                            "last_name": "Houenagnon",
+                                            "gender": "M",
+                                            "email": "merveil3@example.com",
+                                            "phone": "+22998765432",
+                                            "resident_country": "Bénin",
+                                            "nationality": "Béninoise",
+                                            "createdAt": "2025-02-13T15:56:10.000Z",
+                                            "updatedAt": "2025-02-13T15:56:10.000Z"
+                                        },
+                                        "appartenance": {
+                                            "person_id": "8d88b23d-0920-40fe-a431-9a66a472c25c",
+                                            "organization_id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                            "title": "Data Scientist",
+                                            "description": "Spécialiste en IA et analyse de données",
+                                            "createdAt": "2025-02-13T15:56:10.000Z",
+                                            "updatedAt": "2025-02-13T15:56:10.000Z"
+                                        },
+                                        "organisme": {
+                                            "id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                            "name": "Data Afrique Hub",
+                                            "country": "Sénégal",
+                                            "type": "ONG",
+                                            "createdAt": "2025-02-13T14:32:42.000Z",
+                                            "updatedAt": "2025-02-14T21:52:29.000Z"
+                                        }
+                                    }
+                                ]
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/sponsors/{id}":{
+      "get":{
+        "tags": ["Sponsors"],
+          "summary": "Recupérer les informations d'un sponsor à partir de son id",
+          "description": "Cet endpoint permet de recupérer les informations d'un sponsor à partir de son id",
+          "operationId": "get1Sponsor",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie les informations du sponsor voulu",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "sponsor": {
+                                      "id": "45b5b014-fa3a-4f56-b57b-849ee22628e9",
+                                      "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                      "detail": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                                      "createdAt": "2025-02-15T13:28:40.000Z",
+                                      "updatedAt": "2025-02-15T13:28:40.000Z",
+                                      "person": {
+                                          "id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                          "first_name": "Merveil",
+                                          "last_name": "Houenagnon",
+                                          "gender": "M",
+                                          "email": "merveil5@example.com",
+                                          "phone": "+22998765432",
+                                          "resident_country": "Bénin",
+                                          "nationality": "Béninoise",
+                                          "createdAt": "2025-02-13T16:00:18.000Z",
+                                          "updatedAt": "2025-02-13T16:00:18.000Z"
+                                      },
+                                      "appartenance": {
+                                          "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                          "organization_id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                          "title": "Data Scientist",
+                                          "description": "Spécialiste en IA et analyse de données",
+                                          "createdAt": "2025-02-13T16:00:18.000Z",
+                                          "updatedAt": "2025-02-13T16:00:18.000Z"
+                                      },
+                                      "organisme": {
+                                          "id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                          "name": "Data Afrique Hub",
+                                          "country": "Sénégal",
+                                          "type": "ONG",
+                                          "createdAt": "2025-02-13T14:32:42.000Z",
+                                          "updatedAt": "2025-02-14T21:52:29.000Z"
+                                      }
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "put":{
+        "tags": ["Sponsors"],
+          "summary": "Permet de modifier les informations d'un sponsors",
+          "description": "Cet endpoint permet de modifier les informations d'un sponsors",
+          "operationId": "updateSponsor",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Informations de mise à jour",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "first_name": "Merveils",
+                          "last_name": "Houenagnon",
+                          "email": "merveil5@example.com",
+                          "phone": "+22998765432",
+                          "resident_country": "Bénin",
+                          "nationality": "Béninoise",
+                          "gender": "M",
+                          "job_title": "Data Scientist",
+                          "job_description": "Spécialiste en IA et analyse de données",
+                          "organization_name": "Data Afrique Hub",
+                          "organization_country": "Bénin",
+                          "organization_type": "Association",
+                          "detail": "Tout est ok"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Sponsor mis à jour avec succès",
+                                  "sponsor": {
+                                      "id": "45b5b014-fa3a-4f56-b57b-849ee22628e9",
+                                      "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                      "detail": "Tout est ok",
+                                      "createdAt": "2025-02-15T13:28:40.000Z",
+                                      "updatedAt": "2025-02-15T13:53:01.831Z"
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "delete":{
+        "tags": ["Sponsors"],
+          "summary": "Supprimer un sponsor",
+          "description": "Cet endpoint permet de supprimer un sponsor",
+          "operationId": "deleteSponsor",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du compte de l'utilisateur",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+         
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Sponsor deleted successfully"
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    }
+
+
+    
+
+    
+    
     }
 
     
   }
 
-}

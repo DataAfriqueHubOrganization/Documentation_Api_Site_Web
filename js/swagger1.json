@@ -597,7 +597,7 @@
                     "404": {
                         "description": "Renvoie une erreur, aucun élément trouvé"   
                     }
-                }
+        }
       },
 
       "put":{
