@@ -26,15 +26,35 @@
     },
     {
       "name": "Sponsors",
-      "description": "Endpoints relatifs à la gestion des membres, y compris la création, la mise à jour et la récupération de leurs informations. </br> Un membre est tout utilisateur qui désire ou à adhérer à la communauté de Data Afrique Hub"
+      "description": "Endpoints relatifs à la gestion des sponsors"
     },
     {
       "name": "Participants",
-      "description": "Endpoints relatifs à la gestion des membres, y compris la création, la mise à jour et la récupération de leurs informations. </br> Un membre est tout utilisateur qui désire ou à adhérer à la communauté de Data Afrique Hub"
+      "description": "Endpoints relatifs à la gestion des participations à un évènement"
     },
     {
       "name": "Événements",
       "description": "Endpoints dédiés à la gestion des événements, incluant leur création, modification et récupération."
+    },
+    {
+      "name": "Feedback",
+      "description": "Endpoints dédiés à la gestion des témoignages ou des retours sur un évènement."
+    },
+    {
+      "name": "Département",
+      "description": "Endpoints dédiés à la gestion des départements de l'organisation."
+    },
+    {
+      "name": "Rôle",
+      "description": "Endpoints dédiés à la gestion des rôles de l'organisation."
+    },
+    {
+      "name": "Executive",
+      "description": "Endpoints dédiés à la gestion des executives."
+    },
+    {
+      "name": "Département Member",
+      "description": "Endpoints dédiés à la gestion des membres qui sont dans un département et qui ont un rôle."
     }
   ],
   "paths": {
@@ -2090,7 +2110,1767 @@
                     }
         }
       }
-    }
+    },
+
+    "/participation":{
+      "post":{
+        "tags": ["Participants"],
+          "summary": "S'inscrire pour participer à un évènement",
+          "description": "Cet endpoint permet de  s'inscrire pour participer à un évènement existant, si le user n'est pas encore dans la base on lui créer en même temps son profil dans le cas contraire un update si nécessaire",
+          "operationId": "createUser",
+
+          "requestBody":{
+            "description": "Informations pour l'inscription",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "event_id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                          "first_name": "Merveil",
+                          "last_name": "Houenagnon",
+                          "email": "merveil@example.com",
+                          "phone": "+22998765432",
+                          "resident_country": "Bénin",
+                          "nationality": "Béninoise",
+                          "gender": "M",
+                          "job_title": "Data Scientist",
+                          "job_description": "Spécialiste en IA et analyse de données",
+                          "organization_name": "Data Afrique Hub",
+                          "organization_country": "Bénin",
+                          "organization_type": "Association",
+                          "motivation": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                          "where_found_event": "LinkedIn"
+                      }
+                      
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie un utilisateur",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                    "message": "Inscription réussie."
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid || Vous avez déjà participé à cet événement"
+                    }
+        }
+      },
+      "get":{"tags": ["Participants"],
+          "summary": "A partir de l'email du participant, vérifier s'il est déjà dans la base de données",
+          "description": "Cet endpoint est le premier à questionner avant d'inscrire un participant, pour checker s'il est dans la base ou non et avoir ses informations pour l'inscription",
+          "operationId": "checkemail",
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie les informations de l'utilisateur s'il existe dans la base de donnée",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Email trouvé",
+                                  "participant": {
+                                      "id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                      "first_name": "Merveils",
+                                      "last_name": "Houenagnon",
+                                      "email": "merveil5@example.com",
+                                      "phone": "+22998765432",
+                                      "resident_country": "Bénin",
+                                      "nationality": "Béninoise",
+                                      "gender": "M",
+                                      "job_title": "Data Scientist",
+                                      "job_description": "Spécialiste en IA et analyse de données",
+                                      "organization_name": "Data Afrique Hub",
+                                      "organization_country": "Bénin",
+                                      "organization_type": "Association"
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "message": "Email non trouvé dans la base de données"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }},
+
+      "delete":{
+        "tags": ["Participants"],
+          "summary": "Se désinscrire à un évènement",
+          "description": "Cet endpoint permet de désinscrire un participant à un évènement",
+          "operationId": "deleteparticpant",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Informations pour la création",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "event_id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                          "email": "merveil5@example.com"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie le message de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Désinscription réussie."
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "message": "Utilisateur non trouvé. || Vous n'êtes pas inscrit à cet événement."   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/participation/{id}":{
+      "get":{
+        "tags": ["Participants"],
+          "summary": "Obtenir tous les participants inscrits à un évènement",
+          "description": "Cet endpoint permet d'obtenir tous les participants inscrits à un évènement",
+          "operationId": "getEventParticipant",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant de l'évènement",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Renvoie le message de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "participants": [
+                                      {
+                                          "id": "0c9dc2d3-d3ef-42e6-96ed-c98d92809ac1",
+                                          "event_id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                                          "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                          "motivation": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                                          "where_found_event": "LinkedIn",
+                                          "createdAt": "2025-02-16T13:34:59.000Z",
+                                          "updatedAt": "2025-02-16T13:34:59.000Z",
+                                          "user": {
+                                              "id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                              "first_name": "Merveils",
+                                              "last_name": "Houenagnon",
+                                              "gender": "M",
+                                              "email": "merveil5@example.com",
+                                              "phone": "+22998765432",
+                                              "resident_country": "Bénin",
+                                              "nationality": "Béninoise",
+                                              "createdAt": "2025-02-13T16:00:18.000Z",
+                                              "updatedAt": "2025-02-15T13:53:01.000Z"
+                                          },
+                                          "organization": {
+                                              "id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                              "name": "Data Afrique Hub",
+                                              "country": "Bénin",
+                                              "type": "Association",
+                                              "createdAt": "2025-02-13T14:32:42.000Z",
+                                              "updatedAt": "2025-02-15T13:53:01.000Z"
+                                          }
+                                      },
+                                      {
+                                          "id": "e9c5ee54-eaf4-406e-8187-d20dae5a5ce9",
+                                          "event_id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                                          "person_id": "fae0870b-d41a-4c18-ae0d-67bf49d4cf60",
+                                          "motivation": "Je souhaite approfondir mes compétences en data science et réseauter avec d'autres experts.",
+                                          "where_found_event": "LinkedIn",
+                                          "createdAt": "2025-02-13T14:33:58.000Z",
+                                          "updatedAt": "2025-02-13T14:33:58.000Z",
+                                          "user": {
+                                              "id": "fae0870b-d41a-4c18-ae0d-67bf49d4cf60",
+                                              "first_name": "Merveils",
+                                              "last_name": "Houenagnon",
+                                              "gender": "M",
+                                              "email": "merveil@example.com",
+                                              "phone": "+22998765432",
+                                              "resident_country": "Bénin",
+                                              "nationality": "Béninoise",
+                                              "createdAt": "2025-02-13T14:32:57.000Z",
+                                              "updatedAt": "2025-02-14T09:05:06.000Z"
+                                          },
+                                          "organization": {
+                                              "id": "01d5627d-eda3-497e-b692-d8d60856f4c3",
+                                              "name": "Data Afrique Hub",
+                                              "country": "Bénin",
+                                              "type": "Association",
+                                              "createdAt": "2025-02-13T14:32:42.000Z",
+                                              "updatedAt": "2025-02-15T13:53:01.000Z"
+                                          }
+                                      }
+                                  ]
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/feedbacks":{
+      "post":{
+        "tags": ["Feedback"],
+          "summary": "Ajouter un témoignage à un évènement ",
+          "description": "Cet endpoint permet à un utilisateur d'ajouter un témoignage par rapport à un évènement",
+          "operationId": "addFeedback",
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                          "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                          "content": "L'évènement était bien",
+                          "video" : "lien vers video sur youtube",
+                          "date":"2025-03-15"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Témoignage ajouté avec succès",
+                                  "testimonial": {
+                                      "id": "307619fe-b224-4c8b-8d81-a7776e4386fe",
+                                      "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                      "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                                      "content": "L'évènement était bien",
+                                      "photo": null,
+                                      "video": "lien vers video sur youtube",
+                                      "date": "2025-02-17",
+                                      "updatedAt": "2025-02-17T10:46:14.048Z",
+                                      "createdAt": "2025-02-17T10:46:14.048Z"
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "get":{
+        "tags": ["Feedback"],
+          "summary": "Obtenir tous les feedbacks",
+          "description": "Cet endpoint permet d'avoir tout ce qui est feedback de la BD'",
+          "operationId": "createUser",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "testimonials": [
+                                    {
+                                        "id": "0700ea9a-10f5-4bc5-b0a0-385304818df1",
+                                        "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                        "event_id": "357fa153-8c0b-4be6-a9e3-fe829f59408c",
+                                        "content": "L'évènement était bien",
+                                        "date": "2025-02-17",
+                                        "photo": null,
+                                        "video": "lien vers video sur youtube",
+                                        "createdAt": "2025-02-17T11:29:09.000Z",
+                                        "updatedAt": "2025-02-17T11:29:09.000Z",
+                                        "image_testimnial": "http://localhost:3001/undefined"
+                                    },
+                                    {
+                                        "id": "307619fe-b224-4c8b-8d81-a7776e4386fe",
+                                        "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                        "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                                        "content": "L'évènement était bien",
+                                        "date": "2025-02-17",
+                                        "photo": null,
+                                        "video": "lien vers video sur youtube",
+                                        "createdAt": "2025-02-17T10:46:14.000Z",
+                                        "updatedAt": "2025-02-17T10:46:14.000Z",
+                                        "image_testimnial": "http://localhost:3001/undefined"
+                                    },
+                                    {
+                                        "id": "acea4abc-879d-4107-b08e-3790623496a9",
+                                        "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                        "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                                        "content": "L'évènement était bien",
+                                        "date": "2025-02-14",
+                                        "photo": null,
+                                        "video": "lien vers video sur youtube",
+                                        "createdAt": "2025-02-14T11:00:24.000Z",
+                                        "updatedAt": "2025-02-14T11:00:24.000Z",
+                                        "image_testimnial": "http://localhost:3001/undefined"
+                                    }
+                                ]
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+    "/feedbacks/{id}":{
+      "get":{
+        "tags": ["Feedback"],
+          "summary": "Avoir tous les feedbacks d'un évènement",
+          "description": "Cet endpoint permet d'avoir tous les feedbacks d'un évènement'",
+          "operationId": "getEventFeedback",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant de l'évènement",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "testimonials": [
+                                    {
+                                        "id": "307619fe-b224-4c8b-8d81-a7776e4386fe",
+                                        "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                        "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                                        "content": "L'évènement était bien",
+                                        "date": "2025-02-17",
+                                        "photo": null,
+                                        "video": "lien vers video sur youtube",
+                                        "createdAt": "2025-02-17T10:46:14.000Z",
+                                        "updatedAt": "2025-02-17T10:46:14.000Z"
+                                    },
+                                    {
+                                        "id": "acea4abc-879d-4107-b08e-3790623496a9",
+                                        "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                        "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                                        "content": "L'évènement était bien",
+                                        "date": "2025-02-14",
+                                        "photo": null,
+                                        "video": "lien vers video sur youtube",
+                                        "createdAt": "2025-02-14T11:00:24.000Z",
+                                        "updatedAt": "2025-02-14T11:00:24.000Z"
+                                    }
+                                ]
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "put":{
+        "tags": ["Feedback"],
+          "summary": "Mettre à jour un feedback",
+          "description": "Cet endpoint permet de mettre à jour un feedback",
+          "operationId": "updateFeedBack",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant  du feedback",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                          "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                          "content": "L'évènement était bien............efeeeeeeee",
+                          "video" : "lien vers video sur youtube",
+                          "date":"2025-03-15"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "succes": {
+                                    "id": "acea4abc-879d-4107-b08e-3790623496a9",
+                                    "person_id": "008f54c3-94bd-4da2-b457-0ba10b7c6641",
+                                    "event_id": "d310969a-dab5-4cd7-b50f-63dfa1f004d9",
+                                    "content": "L'évènement était bien............efeeeeeeee",
+                                    "date": "2025-03-15",
+                                    "photo": null,
+                                    "video": "lien vers video sur youtube",
+                                    "createdAt": "2025-02-14T11:00:24.000Z",
+                                    "updatedAt": "2025-02-17T11:53:06.000Z"
+                                }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "delete":{
+        "tags": ["Feedback"],
+          "summary": "Supprimer un feedback",
+          "description": "Cet endpoint permet de supprimer un feedback à partir de son id",
+          "operationId": "createUser",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du feedback à supprimer",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Témoignage supprimé avec succès"
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/departements":{
+      "post":{
+        "tags": ["Département"],
+          "summary": "Créer un nouveau département",
+          "description": "Cet endpoint permet de créer un nouveau département ",
+          "operationId": "createDept",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "name": "Département Graphisme",
+                          "description": "S'occupe de tout ce qui est structure visuel"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Département créé avec succès."
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "get":{
+        "tags": ["Département"],
+          "summary": "Avoir tous les départements",
+          "description": "Cet endpoint permet d'avoir la liste de tous les départements",
+          "operationId": "getAllDept",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "departments": [
+                                      {
+                                          "id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                                          "name": "Département Graphisme",
+                                          "description": "S'occupe de tout ce qui est structure visuel",
+                                          "createdAt": "2025-02-17T12:03:14.000Z",
+                                          "updatedAt": "2025-02-17T12:03:14.000Z"
+                                      },
+                                      {
+                                          "id": "a8ce6d24-1b2f-4d2e-a261-8a247dd4b64b",
+                                          "name": "Projet",
+                                          "description": "Réfléchir au projet de la communauté",
+                                          "createdAt": "2025-02-12T14:19:59.000Z",
+                                          "updatedAt": "2025-02-12T14:19:59.000Z"
+                                      },
+                                      {
+                                          "id": "e829cbc7-0fc2-487a-a453-f20c29639562",
+                                          "name": "Département Formation",
+                                          "description": "Supervise la conception",
+                                          "createdAt": "2025-02-12T14:23:20.000Z",
+                                          "updatedAt": "2025-02-12T14:25:45.000Z"
+                                      }
+                                  ]
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/departements/{id}":{
+      "get":{
+        "tags": ["Département"],
+          "summary": "Obtenir un département spécifiquement à partir de son id",
+          "description": "Cet endpoint permet d'obtenir un département spécifiquement à partir de son id ",
+          "operationId": "getDept",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du département",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Département récupéré avec succès.",
+                                  "department": {
+                                      "id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                                      "name": "Département Graphisme",
+                                      "description": "S'occupe de tout ce qui est structure visuel",
+                                      "createdAt": "2025-02-17T12:03:14.000Z",
+                                      "updatedAt": "2025-02-17T12:03:14.000Z"
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "put":{
+        "tags": ["Département"],
+          "summary": "Permet de modifier les informations d'un département",
+          "description": "Cet endpoint permet de mettre à jour les informations d'un département",
+          "operationId": "updateDept",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du département à mettre à jour",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "name": "Département Graphisme",
+                          "description": "S'occupe de tout ce qui est structure visuel et design web"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Département mis à jour avec succès."
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "delete":{
+        "tags": ["Département"],
+          "summary": "Supprimer un département",
+          "description": "Cet endpoint permet de supprimer un département",
+          "operationId": "deleteDept",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du département à supprimer",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Département supprimé avec succès."
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+    "/roles":{
+      "post":{
+        "tags": ["Rôle"],
+          "summary": "Créer un nouveau rôle",
+          "description": "Cet endpoint permet de créer un nouveau rôle ",
+          "operationId": "createRole",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "title":"Co-Lead", 
+                          "description":"Adjoint du premier responsable d'un département", 
+                          "type":"Admin"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Rôle créé avec succès."
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "get":{
+        "tags": ["Rôle"],
+          "summary": "Avoir tous les rôles",
+          "description": "Cet endpoint permet d'avoir la liste de tous les rôles",
+          "operationId": "getAllRoles",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "roles": [
+                                              {
+                                                  "id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                                  "title": "Co-Lead",
+                                                  "description": "Adjoint du premier responsable d'un département",
+                                                  "type": "Admin",
+                                                  "createdAt": "2025-02-12T15:00:31.000Z",
+                                                  "updatedAt": "2025-02-12T15:00:31.000Z"
+                                              },
+                                              {
+                                                  "id": "cb52ab13-9e2e-4f47-9276-08f8661788c0",
+                                                  "title": "Co-Lead",
+                                                  "description": "Adjoint du premier responsable d'un département",
+                                                  "type": "Admin",
+                                                  "createdAt": "2025-02-17T12:33:09.000Z",
+                                                  "updatedAt": "2025-02-17T12:33:09.000Z"
+                                              }
+                                          ]
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/roles/{id}":{
+      "get":{
+        "tags": ["Rôle"],
+          "summary": "Obtenir un rôle spécifiquement à partir de son id",
+          "description": "Cet endpoint permet d'obtenir un rôle spécifiquement à partir de son id ",
+          "operationId": "getRole",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du rôle",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "role": {
+                                      "id": "fee6a463-bbff-4d04-8dbf-e28c38ae7d60",
+                                      "title": "Co-Lead",
+                                      "description": "Adjoint du premier responsable d'un département",
+                                      "type": "Admin",
+                                      "createdAt": "2025-02-12T14:45:40.000Z",
+                                      "updatedAt": "2025-02-12T14:45:40.000Z"
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "put":{
+        "tags": ["Rôle"],
+          "summary": "Permet de modifier les informations d'un rôle",
+          "description": "Cet endpoint permet de mettre à jour les informations d'un rôle",
+          "operationId": "updateRole",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du rôle à mettre à jour",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "title":"Co-Lead", 
+                          "description":"Adjoint du premier responsable d'un département", 
+                          "type":"Member"
+                      }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Rôle mis à jour avec succès."
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "delete":{
+        "tags": ["Rôle"],
+          "summary": "Supprimer un rôle",
+          "description": "Cet endpoint permet de supprimer un rôle",
+          "operationId": "deleteRole",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du rôle à supprimer",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Rôle supprimé avec succès."
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+    "/department-member":{
+      "post":{
+        "tags": ["Département Member"],
+          "summary": "Attribuer un département à un membre et son rôle",
+          "description": "Cet endpoint permet d'attribuer un rôle et un département à un membre qui n'est pas dans l'exécutif",
+          "operationId": "createDeptM",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "department_id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                          "member_id": "87e6a3d0-434c-4551-a017-1a1dea44775c",
+                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                          "starting_date":"2024-02-12"
+                        }
+                        
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                              "message": "Department member created successfully"
+                          }
+                        }
+                    },
+  
+                    "404": {
+                        "error": "Cette personne a déjà un département"  
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "get":{
+        "tags": ["Département Member"],
+          "summary": "Avoir tous les membres des départements",
+          "description": "Cet endpoint permet d'avoir la liste de tous les membres des départements",
+          "operationId": "getADepM",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "department_members": [
+                                      {
+                                          "id": "1ddf3257-5830-4bad-9272-9aa2a1cc78df",
+                                          "department_id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                                          "member_id": "87e6a3d0-434c-4551-a017-1a1dea44775c",
+                                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                          "starting_date": "2025-02-17",
+                                          "createdAt": "2025-02-17T13:38:06.000Z",
+                                          "updatedAt": "2025-02-17T13:38:06.000Z"
+                                      },
+                                      {
+                                          "id": "4e1823c9-89f1-4088-9b0f-41a768889230",
+                                          "department_id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                                          "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                          "starting_date": "2025-02-17",
+                                          "createdAt": "2025-02-17T13:29:58.000Z",
+                                          "updatedAt": "2025-02-17T13:29:58.000Z"
+                                      }
+                                  ]
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/department-member/ismember/{id}":{
+      "get":{
+        "tags": ["Département Member"],
+          "summary": "Obtenir les membres d'un département à partir de l'id du département",
+          "description": "Cet endpoint permet d'obtenir les membres d'un département à partir de l'id du département",
+          "operationId": "getDepMem",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du département",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "members": [
+                                      {
+                                          "id": "4e1823c9-89f1-4088-9b0f-41a768889230",
+                                          "department_id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                                          "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                          "starting_date": null,
+                                          "createdAt": "2025-02-17T13:29:58.000Z",
+                                          "updatedAt": "2025-02-17T13:29:58.000Z"
+                                      },
+                                      {
+                                          "id": "f9451190-e590-4f81-8f77-89bdfb7796b7",
+                                          "department_id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                                          "member_id": "87e6a3d0-434c-4551-a017-1a1dea44775c",
+                                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                          "starting_date": "2025-02-12",
+                                          "createdAt": "2025-02-17T14:03:13.000Z",
+                                          "updatedAt": "2025-02-17T14:04:15.000Z"
+                                      }
+                                  ]
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/department-member/{id}":{
+      "get":{
+        "tags": ["Département Member"],
+          "summary": "Obtenir les membres d'un département à partir de l'id du membre",
+          "description": "Cet endpoint permet d'obtenir le département d'un membre et son rôle juste en fournissant son id",
+          "operationId": "getDepMem",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du membre",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "members": [
+                                      {
+                                          "id": "1ddf3257-5830-4bad-9272-9aa2a1cc78df",
+                                          "department_id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                                          "member_id": "87e6a3d0-434c-4551-a017-1a1dea44775c",
+                                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                          "starting_date": null,
+                                          "createdAt": "2025-02-17T13:38:06.000Z",
+                                          "updatedAt": "2025-02-17T13:38:06.000Z"
+                                      }
+                                  ]
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "put":{
+        "tags": ["Département Member"],
+          "summary": "Permet de modifier les informations d'appartenance à un département d'un membre",
+          "description": "Cet endpoint permet de modifier les informations d'appartenance à un département d'un membre",
+          "operationId": "updateDeptM",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant de l'association departement-membre",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "department_id": "64d08b25-d9a6-4294-bb6f-08755140215c",
+                          "member_id": "87e6a3d0-434c-4551-a017-1a1dea44775c",
+                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                          "starting_date":"2025-02-12"
+                        }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Département mis à jour avec succès."
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "delete":{
+        "tags": ["Département Member"],
+          "summary": "Supprimer un membre d'un département",
+          "description": "Cet endpoint permet de supprimer un membre d'un département",
+          "operationId": "deleteRole",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant de l'association departement-membre à supprimer",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Department member deleted successfully"
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+    "/executives":{
+      "post":{
+        "tags": ["Executive"],
+          "summary": "Attribuer un rôle à un membre",
+          "description": "Cet endpoint permet d'attribuer un rôle à un membre",
+          "operationId": "createExec",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                          "start_date": "2025-02-12T08:00:00Z",
+                          "end_date": "2025-05-12T17:00:00Z"
+                        }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                              
+                                "message": "Exécutif créé avec succès."
+                            
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "error": "Exécutif déjà créer."   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "get":{
+        "tags": ["Executive"],
+          "summary": "Avoir tous les executives",
+          "description": "Cet endpoint permet d'avoir la liste de tous les executives",
+          "operationId": "getAllRoles",
+
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Exécutifs récupérés avec succès.",
+                                  "executives": [
+                                      {
+                                          "id": "b2890713-21ab-47a9-91da-493196f67e3c",
+                                          "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                          "start_date": "2025-02-12",
+                                          "end_date": "2025-05-12",
+                                          "createdAt": "2025-02-17T12:46:59.000Z",
+                                          "updatedAt": "2025-02-17T12:46:59.000Z"
+                                      }
+                                  ]
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    },
+
+    "/executives/{id}":{
+      "get":{
+        "tags": ["Executive"],
+          "summary": "Obtenir un executive spécifiquement à partir de son id",
+          "description": "Cet endpoint permet d'obtenir un executive spécifiquement à partir de son id ",
+          "operationId": "getRole",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du executive",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Exécutif récupéré avec succès.",
+                                  "executive": {
+                                      "id": "b2890713-21ab-47a9-91da-493196f67e3c",
+                                      "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                                      "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                                      "start_date": "2025-02-12",
+                                      "end_date": "2025-05-12",
+                                      "createdAt": "2025-02-17T12:46:59.000Z",
+                                      "updatedAt": "2025-02-17T12:46:59.000Z"
+                                  }
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "put":{
+        "tags": ["Executive"],
+          "summary": "Permet de modifier les informations d'un executive",
+          "description": "Cet endpoint permet de mettre à jour les informations d'un executive",
+          "operationId": "updateRole",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant du executive à mettre à jour",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+
+          "requestBody":{
+            "description": "Données nécessaires pour lancer la requête",
+            "required": true,
+            "content":{
+                "application/json":{
+                        "example":{
+                          "member_id": "56c21cb0-1b71-490f-91ff-3807c82e1681",
+                          "role_id": "6a45d4d8-a60b-4fe7-ad49-001984d12ec9",
+                          "start_date": "2024-02-12T08:00:00Z",
+                          "end_date": "2024-05-12T17:00:00Z"
+                        }
+                    }
+                }
+            },
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Exécutif mis à jour avec succès."
+                              }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      },
+      "delete":{
+        "tags": ["Executive"],
+          "summary": "Supprimer un executive",
+          "description": "Cet endpoint permet de supprimer un executive",
+          "operationId": "deleteRole",
+
+          "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "description": "Identifiant de l'executive à supprimer",
+                "required": true,
+                "schema":{
+                    "type": "string"
+                }
+            }, 
+            {
+              "in": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Bearer token obtenir lors de la connexion."
+            }
+        ],
+          
+          "responses":{
+                    "200":{
+                        "description": "Retour d'infos en cas de succès",
+                        "content":{
+                            "application/json":{
+                                "example":{
+                                  "message": "Exécutif supprimé avec succès."
+                                }
+                            }
+                        }
+                    },
+  
+                    "404": {
+                        "description": "Renvoie une erreur, aucun élément trouvé"   
+                    },
+                    "405": {
+                      "description": "Vous n'avez pas mis dans l'entête le token de connexion"
+                    },
+                    "400": {
+                      "description": "Le token n'est pas valid"
+                    }
+        }
+      }
+    } 
 
 
     
